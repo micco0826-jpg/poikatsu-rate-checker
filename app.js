@@ -43,8 +43,15 @@ function edit(i){
 }
 
 /* Calc */
-function unit(r){ return r.minpt ? (r.yen/r.minpt) : 0; }
-function yenOf(r, n){ const u = unit(r); return Math.round(u*(n||0)); }
+function unit(r){ 
+  return r.minpt ? (r.yen / r.minpt) : 0; 
+}
+
+// 小数第1位まで表示用
+function yenOf(r, n){ 
+  const u = unit(r); 
+  return Math.round(u * (n || 0) * 10) / 10; 
+}
 
 /* CSV */
 function exportCSV(){
