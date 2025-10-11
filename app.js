@@ -132,21 +132,21 @@ function render(opts={}){
   tb.innerHTML = "";
   computed.forEach(r=>{
     const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${escapeHTML(r.site)}</td>
-      <td class="right mono">${r.minpt}</td>
-      <td class="right mono">${r.yen}</td>
-      <td class="right mono">${r.unit.toFixed(2)}</td>
-      <td class="right mono">${r.p1||0}</td>
-      <td class="right mono">${r.yen1}</td>
-      <td class="right mono">${r.p2||0}</td>
-      <td class="right mono">${r.yen2}</td>
-      <td>${escapeHTML(r.memo||"")}</td>
-      <td>
-        <button class="btn ghost small" onclick="edit(${r._i})">編集</button>
-        <button class="btn warn small" onclick="delRow(${r._i})">削除</button>
-      </td>
-    `;
+ tr.innerHTML = `
+  <td>${escapeHTML(r.site)}</td>
+  <td class="right mono">${r.minpt}<span class="unit">pt</span></td>
+  <td class="right mono">${r.yen}<span class="unit">円</span></td>
+  <td class="right mono">${r.unit.toFixed(2)}<span class="unit">円</span></td>
+  <td class="right mono">${r.p1 || 0}<span class="unit">pt</span></td>
+  <td class="right mono">${r.yen1}<span class="unit">円</span></td>
+  <td class="right mono">${r.p2 || 0}<span class="unit">pt</span></td>
+  <td class="right mono">${r.yen2}<span class="unit">円</span></td>
+  <td>${escapeHTML(r.memo || "")}</td>
+  <td>
+    <button class="btn ghost small" onclick="edit(${r._i})">編集</button>
+    <button class="btn warn small" onclick="delRow(${r._i})">削除</button>
+  </td>
+`;
     tb.appendChild(tr);
   });
 

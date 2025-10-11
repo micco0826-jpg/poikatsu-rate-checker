@@ -53,3 +53,10 @@ td .mono{font-variant-numeric:tabular-nums}
   transition: opacity .25s, transform .25s; z-index:9999;
 }
 .toast.show{ opacity:1; transform: translateX(-50%) translateY(-4px); }
+/* 単位の見た目 */
+.unit {
+  color: #999;
+  font-size: 0.85em;
+  margin-left: 3px;
+  vertical-align: middle; /* ←数字と高さを合わせる */
+}
