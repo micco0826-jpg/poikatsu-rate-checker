@@ -136,7 +136,7 @@ function render(opts={}){
   <td>${escapeHTML(r.site)}</td>
   <td class="right mono">${r.minpt}<span class="unit">pt</span></td>
   <td class="right mono">${r.yen}<span class="unit">円</span></td>
-  <td class="right mono">${r.unit.toFixed(2)}<span class="unit">円</span></td>
+  <td class="right mono">${r.unit.toFixed(4)}<span class="unit">円</span></td>
   <td class="right mono">${r.p1 || 0}<span class="unit">pt</span></td>
   <td class="right mono">${r.yen1}<span class="unit">円</span></td>
   <td class="right mono">${r.p2 || 0}<span class="unit">pt</span></td>
