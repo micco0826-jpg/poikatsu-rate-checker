@@ -109,3 +109,21 @@ td .mono{font-variant-numeric:tabular-nums}
 .form-grid textarea::placeholder {
   color: #9aa0a6;
 }
+
+/* テーブル内ボタンの位置揃え */
+#tbl td {
+  vertical-align: middle; /* 行の中央にボタンを揃える */
+}
+
+/* 編集・削除ボタンの余白を統一 */
+#tbl .btn.small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  margin: 2px 4px; /* 並んでもギュッとしないように */
+}
