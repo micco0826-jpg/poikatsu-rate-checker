@@ -150,6 +150,20 @@ function render(opts={}){
     tb.appendChild(tr);
   });
 
+ // ---- ここから追加：Enterキーで次のinputに移動 ----
+  const inputs = document.querySelectorAll('.form-grid input');
+  inputs.forEach((input, i) => {
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault(); // Enterで送信されるのを防ぐ
+        const next = inputs[i + 1] || document.getElementById('addBtn');
+        next?.focus();
+        next?.select?.();
+      }
+    });
+  });
+  // ---- ここまで追加 ----
+
   // header indicators
   document.querySelectorAll("thead th.sortable .sort-ind").forEach(span=> span.textContent="");
   const cur = document.querySelector(`thead th.sortable[data-k="${sortState.key}"] .sort-ind`);
