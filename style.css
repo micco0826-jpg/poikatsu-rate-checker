@@ -46,3 +46,10 @@ td .mono{font-variant-numeric:tabular-nums}
 .file-input .btn{position:relative;z-index:1}
 
 .footer{color:#888;font-size:12px;margin:22px 0;text-align:center}
+.toast{
+  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+  background: rgba(34,34,34,.9); color:#fff; padding:10px 14px;
+  border-radius:12px; font-size:13px; opacity:0; pointer-events:none;
+  transition: opacity .25s, transform .25s; z-index:9999;
+}
+.toast.show{ opacity:1; transform: translateX(-50%) translateY(-4px); }

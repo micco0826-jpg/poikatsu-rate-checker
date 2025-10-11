@@ -1,6 +1,15 @@
 const key = "poikatsu_unit_split_v1";
 const $ = (s)=>document.querySelector(s);
 
+function flash(msg){
+  const el = document.getElementById('toast');
+  if(!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(flash._t);
+  flash._t = setTimeout(()=> el.classList.remove('show'), 1600);
+}
+
 /* Data */
 function getData(){ try{ return JSON.parse(localStorage.getItem(key)||"[]"); } catch(e){ return []; } }
 function setData(arr){ localStorage.setItem(key, JSON.stringify(arr)); }
@@ -19,6 +28,9 @@ function add(){
   setData(arr);
   ["#site","#minpt","#yen","#p1","#p2"].forEach(id=>$(id).value="");
   render({scroll:true});
+  // 既存 add() の最後に追加
+  flash("保存しました");
+  
 }
 
 /* Delete */
@@ -40,6 +52,8 @@ function edit(i){
   $("#p1").value = r.p1||"";
   $("#p2").value = r.p2||"";
   delRow(i);
+  // 既存 delRow() の最後に追加
+  flash("1件削除しました");
 }
 
 /* Calc */
@@ -93,6 +107,8 @@ function importCSV(file){
     render();
   };
   reader.readAsText(file,"utf-8");
+  // CSV読み込み完了時に追加
+  flash("CSVを読み込みました");
 }
 
 /* Render & sort */
@@ -186,3 +202,12 @@ function parseCSVLine(line){
   }
   render();
 })();
+// もし未定義なら追加（全削除ボタン用）
+function resetAll(){
+  if(!confirm("保存データを全部消します。よい？")) return;
+  setData([]);
+  render();
+  flash("データを削除しました");
+}
+
+
