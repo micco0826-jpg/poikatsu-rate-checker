@@ -61,10 +61,10 @@ function unit(r){
   return r.minpt ? (r.yen / r.minpt) : 0; 
 }
 
-// 小数第1位まで表示用
-function yenOf(r, n){ 
-  const u = unit(r); 
-  return Math.round(u * (n || 0) * 10) / 10; 
+// 丸めず“素の値”を返す
+function yenOf(r, n){
+  const u = unit(r);
+  return u * Number(n || 0);
 }
 
 /* CSV */
@@ -138,9 +138,9 @@ function render(opts={}){
   <td class="right mono">${r.yen}<span class="unit">円</span></td>
   <td class="right mono">${r.unit.toFixed(4)}<span class="unit">円</span></td>
   <td class="right mono">${r.p1 || 0}<span class="unit">pt</span></td>
-  <td class="right mono">${r.yen1}<span class="unit">円</span></td>
+  <td class="right mono">${fmtMoney(r.yen1)}<span class="unit">円</span></td>
   <td class="right mono">${r.p2 || 0}<span class="unit">pt</span></td>
-  <td class="right mono">${r.yen2}<span class="unit">円</span></td>
+  <td class="right mono">${fmtMoney(r.yen2)}<span class="unit">円</span></td>
   <td>${escapeHTML(r.memo || "")}</td>
   <td>
     <button class="btn ghost small" onclick="edit(${r._i})">編集</button>
@@ -224,4 +224,10 @@ function resetAll(){
   flash("データを削除しました");
 }
 
-
+// 金額の見た目だけを整える
+function fmtMoney(x){
+  const v = Number(x) || 0;
+  if (v === 0) return "0";
+  if (v < 1)  return v.toFixed(2);          // 1円未満は0.01円単位
+  return (Math.round(v * 10) / 10).toFixed(1); // 1円以上は0.1円単位
+}
