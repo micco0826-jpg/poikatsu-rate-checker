@@ -21,12 +21,13 @@ function add(){
   const yen = Number($("#yen").value||0);
   const p1 = Number($("#p1").value||0);
   const p2 = Number($("#p2").value||0);
+  const memo = $("#memo").value.trim();
   if(!site){ alert("サイト名を入れてね"); return; }
   if(!minpt || !yen){ alert("最低換金pt と 換金額 を入れてね"); return; }
   const arr = getData();
-  arr.push({site, minpt, yen, p1: p1||0, p2: p2||0, memo:""});
+  arr.push({site, minpt, yen, p1: p1||0, p2: p2||0, memo});
   setData(arr);
-  ["#site","#minpt","#yen","#p1","#p2"].forEach(id=>$(id).value="");
+ ["#site","#minpt","#yen","#p1","#p2","#memo"].forEach(id=>$(id).value="");
   render({scroll:true});
   // 既存 add() の最後に追加
   flash("保存しました");
@@ -150,19 +151,22 @@ function render(opts={}){
     tb.appendChild(tr);
   });
 
- // ---- ここから追加：Enterキーで次のinputに移動 ----
-  const inputs = document.querySelectorAll('.form-grid input');
-  inputs.forEach((input, i) => {
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        e.preventDefault(); // Enterで送信されるのを防ぐ
-        const next = inputs[i + 1] || document.getElementById('addBtn');
-        next?.focus();
-        next?.select?.();
-      }
-    });
+// ---- ここから追加：Enterキーで次のinputに移動（textarea対応）----
+const inputs = document.querySelectorAll('.form-grid input, .form-grid textarea');
+inputs.forEach((el, i) => {
+  el.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      // textareaでは Shift+Enter で改行できるようにする
+      if (el.tagName === 'TEXTAREA' && e.shiftKey) return;
+
+      e.preventDefault(); // Enterで送信されるのを防ぐ
+      const next = inputs[i + 1] || document.getElementById('addBtn');
+      next?.focus();
+      next?.select?.();
+    }
   });
-  // ---- ここまで追加 ----
+});
+// ---- ここまで追加 ----
 
   // header indicators
   document.querySelectorAll("thead th.sortable .sort-ind").forEach(span=> span.textContent="");

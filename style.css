@@ -29,6 +29,18 @@ input[type="text"],input[type="number"]{
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
 .form-grid > div{min-width:0}
 .form-grid .full{grid-column:1 / -1}
+/* グリッドの両列をまたぐ */
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
+/* テキストエリアの使い勝手を少しUP */
+.form-grid textarea#memo {
+  width: 100%;
+  min-height: 44px;
+  resize: vertical;     /* 好きに縦方向に伸縮OK */
+  line-height: 1.6;
+}
 
 .table-wrap{margin-top:16px;max-height:65vh;overflow:auto;position:relative;will-change:transform}
 table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:14px;overflow:hidden}
@@ -59,4 +71,41 @@ td .mono{font-variant-numeric:tabular-nums}
   font-size: 0.85em;
   margin-left: 3px;
   vertical-align: middle; /* ←数字と高さを合わせる */
+}
+/* 入力欄の共通スタイル（input/textareaを同一に） */
+.form-grid input,
+.form-grid textarea {
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+  padding: 14px 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset;
+}
+
+/* フォーカス時の枠・影も統一 */
+.form-grid input:focus,
+.form-grid textarea:focus {
+  outline: none;
+  border-color: #d8d8d8;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+}
+
+/* メモ用テキストエリアの調整（高さ・リサイズ） */
+.form-grid textarea#memo {
+  min-height: 56px;     /* inputと近い高さからスタート */
+  resize: vertical;     /* 必要なら縦に伸ばせる */
+}
+
+/* メモをフォーム2列ぶち抜きで */
+.form-grid .full {       /* 既にあればそのままでOK */
+  grid-column: 1 / -1;
+}
+
+/* プレースホルダ色を薄めに（任意） */
+.form-grid input::placeholder,
+.form-grid textarea::placeholder {
+  color: #9aa0a6;
 }
