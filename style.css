@@ -72,6 +72,9 @@ td .mono{font-variant-numeric:tabular-nums}
   margin-left: 3px;
   vertical-align: middle; /* ←数字と高さを合わせる */
 }
+/* クリックを透過させる（入力欄の操作をブロックしない） */
+.toast { pointer-events: none; }
+
 /* 入力欄の共通スタイル（input/textareaを同一に） */
 .form-grid input,
 .form-grid textarea {

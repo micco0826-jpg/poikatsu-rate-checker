@@ -125,6 +125,7 @@ function exportCSV() {
   URL.revokeObjectURL(a.href);
 }
 
+
 function importCSV(file) {
   const reader = new FileReader();
   reader.onload = (e) => {
@@ -251,17 +252,19 @@ function parseCSVLine(line) {
 }
 
 /* Seed */
-(function init() {
+(function init(){
   const arr = getData();
-  if (arr.length === 0) {
+  if(arr.length===0){
     setData([
-      { site: "あるくと", minpt: 100, yen: 100, p1: 5, p2: 20, memo: "歩数アプリ" },
-      { site: "ハピタス", minpt: 300, yen: 300, p1: 60, p2: 120, memo: "等価交換" },
-      { site: "ポイントインカム", minpt: 500, yen: 500, p1: 50, p2: 100, memo: "案件系" }
+      {site:"あるくと", minpt:100, yen:100, p1:5,  p2:20,  memo:"歩数アプリ"},
+      {site:"ハピタス", minpt:300, yen:300, p1:60, p2:120, memo:"等価交換"},
+      {site:"ポイントインカム", minpt:500, yen:500, p1:50, p2:100, memo:"案件系"}
     ]);
   }
   render();
-})();
+  setupCSVImport();   // ← これを追加
+;})();
+
 // もし未定義なら追加（全削除ボタン用）
 function resetAll() {
   if (!confirm("保存データを全部消しますか？")) return;
@@ -276,4 +279,20 @@ function fmtMoney(x) {
   if (v === 0) return "0";
   if (v < 1) return v.toFixed(2);          // 1円未満は0.01円単位
   return (Math.round(v * 10) / 10).toFixed(1); // 1円以上は0.1円単位
+}
+function setupCSVImport(){
+  const btn = document.getElementById('csvBtn');
+  const inp = document.getElementById('csv');
+  if (!btn || !inp) return;
+
+  // 見た目ボタン→隠しinputをクリック
+  btn.addEventListener('click', () => inp.click());
+
+  // ファイル選択後に読み込み開始
+  inp.addEventListener('change', (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    importCSV(f);
+    e.target.value = ""; // 同じファイル再選択でも発火させるためリセット
+  });
 }
