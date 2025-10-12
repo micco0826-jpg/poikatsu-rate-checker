@@ -105,17 +105,26 @@ function exportCSV() {
   const arr = getData();
   const head = ["サイト名", "最低換金ポイント", "換金額", "pt1", "pt2", "メモ"];
   const lines = [head.join(",")];
+
   arr.forEach(r => {
     const row = [r.site, r.minpt, r.yen, r.p1 || "", r.p2 || "", r.memo || ""];
     lines.push(row.map(csvEsc).join(","));
   });
-  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
+
+  // ★ ここを追加（Excel対策：BOMを付ける）
+  const bom = "\uFEFF"; // ←これがUTF-8の目印！
+
+  // 改行コードもWindows用に統一しておく
+  const csvText = bom + lines.join("\r\n");
+
+  const blob = new Blob([csvText], { type: "text/csv;charset=utf-8;" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "poikatsu_unit.csv";
   a.click();
   URL.revokeObjectURL(a.href);
 }
+
 function importCSV(file) {
   const reader = new FileReader();
   reader.onload = (e) => {
@@ -255,7 +264,7 @@ function parseCSVLine(line) {
 })();
 // もし未定義なら追加（全削除ボタン用）
 function resetAll() {
-  if (!confirm("保存データを全部消します。よい？")) return;
+  if (!confirm("保存データを全部消しますか？")) return;
   setData([]);
   render();
   flash("データを削除しました");
