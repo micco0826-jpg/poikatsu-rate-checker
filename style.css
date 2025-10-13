@@ -132,3 +132,68 @@ td .mono{font-variant-numeric:tabular-nums}
 }
 th.action-col { width: 80px; }      /* 操作列の幅を小さめに */
 td.actions    { text-align: right; white-space: nowrap; }
+/* 入力フォーム全体の見た目を調整 */
+.form-grid input[type="date"],
+.form-grid input[type="number"] {
+  width: 100%;
+  height: 40px;
+  padding: 6px 10px;
+  font-size: 16px;
+  font-family: inherit; /* 全体と同じフォントに */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* テキストエリアも高さ・フォントを揃える */
+.form-grid textarea {
+  width: 100%;
+  font-size: 16px;
+  font-family: inherit;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+}
+
+/* ラベルとボタンも少し整える */
+.form-grid label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.form-grid .btn {
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 6px;
+}
+/* タイトルと説明文を下端でそろえる */
+.hero {
+  display: flex;
+  align-items: flex-end;      /* 下端揃え */
+  gap: 12px;
+}
+.hero h1 {
+  margin: 0;
+  line-height: 1.1;
+}
+.hero .note {
+  margin: 0 0 2px 0;          /* 少しだけ下げて視覚合わせ */
+  color: #666;
+  font-size: 14px;
+}
+/* メモ列が折り返せるように */
+.table-wrap table {
+  table-layout: fixed;
+  width: 100%;
+}
+.table-wrap td:nth-child(3),
+.table-wrap th:nth-child(3) {
+  word-break: break-word;  /* 長いメモも折り返し */
+}
+.action-col {
+  text-align: right;
+}
