@@ -259,37 +259,23 @@ a.link[target="_blank"]::after {
     text-align: right;
   }
 }
-/* ---------- スマホ時はテーブルを横スクロールにする ---------- */
-@media (max-width: 768px) {
-  /* テーブルを包んでるカードに横スクロールを許可 */
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* iOSでぬるっと */
+/* ▼スマホで編集・削除ボタンが見えない対策 */
+@media (max-width: 600px){
+  .table-wrap td.actions{
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;     /* 折り返しOK */
+    white-space: normal; /* テキスト折り返し許可 */
   }
 
-  /* テーブル自体は最小幅を確保（列が潰れないように） */
-  #tbl {
-    min-width: 900px;       /* 列数に合わせて 800〜1000px くらいが目安 */
-    table-layout: fixed;    /* 列幅計算を安定させる */
+  .table-wrap td.actions .btn.small{
+    padding: 6px 10px;
+    font-size: 14px;
   }
 
-  /* 文字が縦に折れて崩れないように */
-  #tbl th,
-  #tbl td {
-    white-space: nowrap;    /* 改行せず横に流す */
-    padding: 10px 12px;
-  }
-
-  /* 小さな単位（円 / pt）を控えめに */
-  .unit {
-    font-size: 12px;
-    margin-left: 2px;
-  }
-
-  /* 操作用ボタンの列は幅を固定して崩れないように */
-  #tbl td .btn.small,
-  #tbl th.action-col {
-    width: 90px;            /* ボタン1個分の幅を確保 */
-    text-align: right;
+  /* 操作列（編集・削除ボタン）の幅をちょっと広げる */
+  .table-wrap col:last-child{
+    width: 160px !important;
   }
 }
