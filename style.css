@@ -210,3 +210,6 @@ td.actions    { text-align: right; white-space: nowrap; }
 .card:last-of-type {
   margin-bottom: 40px;
 }
+
+a.link { color:#333; text-decoration:none; font-weight:600; }
+a.link:hover { color:#0078aa; text-decoration:underline; }
