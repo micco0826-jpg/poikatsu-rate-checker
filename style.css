@@ -798,3 +798,36 @@ html::after {
   background: none !important;
   content: none !important;
 }
+/* ====== SP：操作列(編集/削除)が重ならないように調整 ====== */
+@media (max-width: 600px) {
+  /* 操作列は折り返しOK & フレックス配置 */
+  #tbl td.action-col,
+  #tbl td:last-child {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;       /* ← これで重ならず折り返せる */
+    white-space: normal;   /* ← ノーラップを打ち消す */
+    width: 140px;          /* 120〜160pxお好みで */
+    padding-right: 8px;
+  }
+
+  /* メモ列は折り返し可にして幅を稼ぐ（9列目がメモ） */
+  #tbl td:nth-child(9),
+  #tbl th:nth-child(9) {
+    white-space: normal;
+  }
+
+  /* モバイル時のセルの余白を少しだけ詰める */
+  #tbl th,
+  #tbl td {
+    padding: 10px 8px;
+  }
+
+  /* ボタンを少し小さめに */
+  #tbl .btn.small {
+    height: 30px;
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
