@@ -153,3 +153,10 @@ function wireEvents(){
   wireEvents();
   render();
 })();
+function updateTotal() {
+  const total = records.reduce((sum, r) => sum + Number(r.amount || 0), 0);
+  document.getElementById("totalAmount").textContent = total.toLocaleString() + "円";
+}
+
+// ページ読み込み時にも実行
+updateTotal();

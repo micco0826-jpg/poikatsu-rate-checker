@@ -650,17 +650,22 @@ html::after {
   background: none !important;
   content: none !important;
 }
+
 /* ====== SP：操作列(編集/削除)が重ならないように調整 ====== */
 @media (max-width: 600px) {
+
   /* 操作列は折り返しOK & フレックス配置 */
   #tbl td.action-col,
   #tbl td:last-child {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    flex-wrap: wrap;       /* ← これで重ならず折り返せる */
-    white-space: normal;   /* ← ノーラップを打ち消す */
-    width: 140px;          /* 120〜160pxお好みで */
+    flex-wrap: wrap;
+    /* ← これで重ならず折り返せる */
+    white-space: normal;
+    /* ← ノーラップを打ち消す */
+    width: 140px;
+    /* 120〜160pxお好みで */
     padding-right: 8px;
   }
 
@@ -683,25 +688,53 @@ html::after {
     font-size: 13px;
   }
 }
+
 /* 編集・削除ボタン列（右寄せ＋コンパクト） */
 .table-wrap th:last-child,
 .table-wrap td:last-child {
-  white-space: nowrap;  /* ←折り返さない */
-  padding-right: 12px;  /* ←右にちょっと余白 */
+  white-space: nowrap;
+  /* ←折り返さない */
+  padding-right: 12px;
+  /* ←右にちょっと余白 */
 }
+
 /* メモ列のテキストを折り返す */
 #tbl td:nth-child(9) {
   white-space: normal !important;
   word-break: break-all;
 }
+
 /* 表のカードの下に余白（重なり防止） */
 .table-wrap {
-  margin-bottom: 12px;  /* 8〜16pxで好みに調整 */
-  overflow: hidden;     /* 角丸を綺麗に出すため（既にあればOK） */
-  border-radius: 14px;  /* 既存値に合わせる */
+  margin-bottom: 12px;
+  /* 8〜16pxで好みに調整 */
+  overflow: hidden;
+  /* 角丸を綺麗に出すため（既にあればOK） */
+  border-radius: 14px;
+  /* 既存値に合わせる */
 }
 
 /* データ操作カードの上に余白（保険） */
 .ops-card {
-  margin-top: 12px;     /* 8〜16pxで好みに調整 */
+  margin-top: 12px;
+  /* 8〜16pxで好みに調整 */
+}
+
+.total-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  background: #fff;
+  padding: 14px 16px;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.total-card .pill {
+  background: #ff9fb7;
+  color: #fff;
+  font-size: 13px;
 }
