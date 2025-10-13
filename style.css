@@ -130,3 +130,5 @@ td .mono{font-variant-numeric:tabular-nums}
   white-space: nowrap;
   margin: 2px 4px; /* 並んでもギュッとしないように */
 }
+th.action-col { width: 80px; }      /* 操作列の幅を小さめに */
+td.actions    { text-align: right; white-space: nowrap; }
