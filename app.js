@@ -287,7 +287,7 @@ function render(opts = {}) {
   <td class="right mono">${r.p2 || 0}<span class="unit">pt</span></td>
   <td class="right mono">${fmtMoney(r.yen2)}<span class="unit">円</span></td>
   <td>${escapeHTML(r.memo || "")}</td>
-  <td class="actions">
+  <td class="action-col">
     <button type="button" class="btn ghost small" onclick="edit(${r._i})">編集</button>
     <button type="button" class="btn warn small"  onclick="delRow(${r._i})">削除</button>
   </td>

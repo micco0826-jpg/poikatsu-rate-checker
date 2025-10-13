@@ -504,14 +504,6 @@ a.link[target="_blank"]::after {
     /* 列幅計算を安定させる */
   }
 
-  /* 文字が縦に折れて崩れないように */
-  #tbl th,
-  #tbl td {
-    white-space: nowrap;
-    /* 改行せず横に流す */
-    padding: 10px 12px;
-  }
-
   /* 小さな単位（円 / pt）を控えめに */
   .unit {
     font-size: 12px;
@@ -538,16 +530,6 @@ a.link[target="_blank"]::after {
     white-space: normal;
     /* テキスト折り返し許可 */
   }
-
-  .table-wrap td.actions .btn.small {
-    padding: 6px 10px;
-    font-size: 14px;
-  }
-
-  /* 操作列（編集・削除ボタン）の幅をちょっと広げる */
-  .table-wrap col:last-child {
-    width: 160px !important;
-  }
 }
 
 @media (max-width: 600px) {
@@ -572,56 +554,15 @@ body {
   /* ピル部分は濃いめのピンクでアクセント */
 }
 
-.table-wrap {
-  padding-right: 20px;
-  /* ←これを追加！ */
-}
-
 /* テーブルは固定レイアウト＋100%で均等に */
 .table-wrap table {
   width: 100%;
   table-layout: fixed;
 }
 
-/* アクション列（編集/削除）に十分な幅を確保 */
-.table-wrap th.action-col,
-.table-wrap td.action-col {
-  width: 140px;
-  /* ←120〜160pxの範囲で調整OK */
-  text-align: right;
-}
-
-/* 右端が切れないように少し内側に寄せる */
-.table-wrap td.action-col {
-  padding-right: 16px;
-  /* ←これが“切れ”防止の決め手 */
-}
-
 /* ボタン間の余白（お好みで） */
 .table-wrap td.action-col .btn+.btn {
   margin-left: 8px;
-}
-
-/* 念のため：テーブルブロックに右余白も1枚追加して保険 */
-.table-wrap {
-  padding-right: 16px;
-  overflow-x: auto;
-  /* 横スクロールOK */
-  overflow-y: hidden;
-  /* 縦にはみ出さないように */
-}
-
-/* 右端のボタン列をキュッと */
-.table-wrap td.action-col,
-.table-wrap th:last-child {
-  width: 120px;
-  /* 110～140pxの間で好みに調整 */
-  text-align: right;
-  /* 右寄せ */
-  padding-right: 8px;
-  /* 余白を控えめに（4～12pxで調整可） */
-  white-space: nowrap;
-  /* ボタンを折り返さない */
 }
 
 /* ボタン同士の間隔は少しだけ */
@@ -645,28 +586,12 @@ body {
   border-spacing: 0;
 }
 
-/* 各列の基本幅（全体でほぼ均等） */
-.table-wrap th,
-.table-wrap td {
-  padding: 8px 10px;
-  text-align: left;
-  vertical-align: middle;
-  word-wrap: break-word;
-}
 
 /* メモをちょい広め（見やすさ重視） */
 .table-wrap th:nth-child(9),
 .table-wrap td:nth-child(9) {
   width: 16%;
   white-space: nowrap;
-}
-
-/* 編集・削除ボタン列（コンパクト） */
-.table-wrap th:last-child,
-.table-wrap td:last-child {
-  width: 90px;
-  text-align: right;
-  padding-right: 6px;
 }
 
 /* ボタン間隔を調整 */
@@ -688,85 +613,12 @@ body {
   text-align: left;
 }
 
-.table-wrap th:last-child,
-.table-wrap td:last-child {
-  text-align: right;
-  white-space: nowrap;
-}
+
 
 /* 表の基礎（colgroup効かない場合に備えて固定レイアウト化） */
 .table-wrap table {
   width: 100%;
   table-layout: fixed;
-}
-
-/* ===== 列幅の強制指定（!important で確実に反映） ===== */
-.table-wrap th:nth-child(1),
-.table-wrap td:nth-child(1) {
-  width: 13% !important;
-}
-
-/* サイト名 */
-.table-wrap th:nth-child(2),
-.table-wrap td:nth-child(2) {
-  width: 11% !important;
-}
-
-/* 最低換金pt */
-.table-wrap th:nth-child(3),
-.table-wrap td:nth-child(3) {
-  width: 11% !important;
-}
-
-/* 換金額 */
-.table-wrap th:nth-child(4),
-.table-wrap td:nth-child(4) {
-  width: 10% !important;
-}
-
-/* 1pt(円) */
-.table-wrap th:nth-child(5),
-.table-wrap td:nth-child(5) {
-  width: 9% !important;
-}
-
-/* pt① */
-.table-wrap th:nth-child(6),
-.table-wrap td:nth-child(6) {
-  width: 9% !important;
-}
-
-/* pt①→円 */
-.table-wrap th:nth-child(7),
-.table-wrap td:nth-child(7) {
-  width: 9% !important;
-}
-
-/* pt② */
-.table-wrap th:nth-child(8),
-.table-wrap td:nth-child(8) {
-  width: 9% !important;
-}
-
-/* pt②→円 */
-.table-wrap th:nth-child(9),
-.table-wrap td:nth-child(9) {
-  width: 14% !important;
-}
-
-/* メモ（広め） */
-.table-wrap th:nth-child(10),
-.table-wrap td:nth-child(10) {
-  width: 6% !important;
-}
-
-/* 編集/削除 */
-
-/* 右端の操作列は詰める＆折り返し防止 */
-.table-wrap th:last-child,
-.table-wrap td:last-child {
-  text-align: right;
-  white-space: nowrap;
 }
 
 /* 1) html と body を同じ色にして統一 */
@@ -830,4 +682,15 @@ html::after {
     padding: 6px 10px;
     font-size: 13px;
   }
+}
+/* 編集・削除ボタン列（右寄せ＋コンパクト） */
+.table-wrap th:last-child,
+.table-wrap td:last-child {
+  white-space: nowrap;  /* ←折り返さない */
+  padding-right: 12px;  /* ←右にちょっと余白 */
+}
+/* メモ列のテキストを折り返す */
+#tbl td:nth-child(9) {
+  white-space: normal !important;
+  word-break: break-all;
 }
