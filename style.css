@@ -694,3 +694,14 @@ html::after {
   white-space: normal !important;
   word-break: break-all;
 }
+/* 表のカードの下に余白（重なり防止） */
+.table-wrap {
+  margin-bottom: 12px;  /* 8〜16pxで好みに調整 */
+  overflow: hidden;     /* 角丸を綺麗に出すため（既にあればOK） */
+  border-radius: 14px;  /* 既存値に合わせる */
+}
+
+/* データ操作カードの上に余白（保険） */
+.ops-card {
+  margin-top: 12px;     /* 8〜16pxで好みに調整 */
+}
