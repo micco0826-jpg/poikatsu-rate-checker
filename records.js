@@ -3,6 +3,8 @@ const $ = s => document.querySelector(s);
 const qs = new URLSearchParams(location.search);
 const site = qs.get("site") || ""; // 例：?site=ハピタス
 const key  = site ? `poikatsu_logs_${site}` : `poikatsu_logs_default`;
+// 先頭の const 群の下あたりに追加
+const BACKUP_KEY = `poikatsu_logs_backup_${site || 'default'}`;
 
 function flash(msg){
   const el = document.getElementById('toast'); if(!el) return;
@@ -15,6 +17,39 @@ function escapeHTML(s){
 }
 function getData(){ try{ return JSON.parse(localStorage.getItem(key)||"[]"); } catch(e){ return []; } }
 function setData(arr){ localStorage.setItem(key, JSON.stringify(arr)); }
+function exportCSV(){
+  const arr = getData();               // いま表示してるこのサイトの記録
+  const head = ["日付","金額","メモ"];
+  const lines = [head.join(",")];
+
+  // CSV用エスケープ（" → ""、カンマ/改行があればクオート）
+  const esc = s => {
+    const t = String(s ?? "").replace(/"/g,'""');
+    return /[",\n]/.test(t) ? `"${t}"` : t;
+  };
+
+  arr.forEach(r=>{
+    lines.push([esc(r.date), esc(r.amt), esc(r.memo)].join(","));
+  });
+
+  // Excel文字化け対策：BOM + CRLF
+  const bom = "\uFEFF";
+  const csvText = bom + lines.join("\r\n");
+
+  const blob = new Blob([csvText], {type: "text/csv;charset=utf-8;"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (site ? `${site}_` : "") + "cash_logs.csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+
+  // 前回バックアップ時刻を覚えて表示を更新（任意）
+  try{
+    localStorage.setItem(BACKUP_KEY, String(Date.now()));
+    updateBackupInfo?.();
+  }catch(e){}
+  flash?.("CSVを出力しました");
+}
 
 // ===== 追加 =====
 function add(){
