@@ -14,8 +14,15 @@ function flash(msg) {
 /* Data */
 function getData() { try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch (e) { return []; } }
 function setData(arr) { localStorage.setItem(key, JSON.stringify(arr)); }
-
-
+function getRecordTotal(site) {
+  try {
+    const arr = JSON.parse(localStorage.getItem(`poikatsu_logs_${site}`) || "[]");
+    // records.html は amt フィールド（amount互換もケア）
+    return arr.reduce((sum, r) => sum + Number(r.amt ?? r.amount ?? 0), 0);
+  } catch (e) {
+    return 0;
+  }
+}
 // Add（新規/更新 共通）
 function add() {
   const site = $("#site").value.trim();
@@ -257,7 +264,8 @@ function render(opts = {}) {
   const arr = getData();
   const computed = arr.map((r, idx) => {
     const u = unit(r);
-    return { ...r, _i: idx, unit: u, yen1: yenOf(r, r.p1), yen2: yenOf(r, r.p2) };
+    const totalYen = getRecordTotal(r.site);
+    return { ...r, _i: idx, unit: u, yen1: yenOf(r, r.p1), yen2: yenOf(r, r.p2) , totalYen};
   });
   // sort
   const k = sortState.key, dir = sortState.dir;
@@ -287,6 +295,7 @@ function render(opts = {}) {
   <td class="right mono">${r.p2 || 0}<span class="unit">pt</span></td>
   <td class="right mono">${fmtMoney(r.yen2)}<span class="unit">円</span></td>
   <td>${escapeHTML(r.memo || "")}</td>
+   <td class="right mono">${fmtMoney(r.totalYen)}<span class="unit">円</span></td>
   <td class="action-col">
     <button type="button" class="btn ghost small" onclick="edit(${r._i})">編集</button>
     <button type="button" class="btn warn small"  onclick="delRow(${r._i})">削除</button>

@@ -738,3 +738,13 @@ html::after {
   color: #fff;
   font-size: 13px;
 }
+/* 累計(円) 列は右寄せ（保険） */
+#tbl th[data-k="totalYen"],
+#tbl td:nth-child(10) {  /* colgroupに合わせて番号がズレたら要調整 */
+  text-align: right;
+}
+
+/* スマホ時、表の最小幅を少し広げて窮屈さ回避（任意） */
+@media (max-width: 768px){
+  #tbl { min-width: 980px; } /* 900→980 など好みで */
+}
