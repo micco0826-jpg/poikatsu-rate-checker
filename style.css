@@ -279,3 +279,7 @@ a.link[target="_blank"]::after {
     width: 160px !important;
   }
 }
+
+@media (max-width: 600px){
+  body { background: pink !important; }
+}
