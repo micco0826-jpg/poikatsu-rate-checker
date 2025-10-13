@@ -107,24 +107,68 @@ function yenOf(r, n) {
   return u * Number(n || 0);
 }
 
-/* CSV */
+/* CSV（表の並び順＆累計込みで出力） */
 function exportCSV() {
-  const arr = getData();
-  const head = ["サイト名", "最低換金ポイント", "換金額", "pt1", "pt2", "メモ"];
+  // 1) 表示用と同じ“計算済み配列”を作る
+  const base = getData();
+  const computed = base.map(r => {
+    const u = unit(r);
+    return {
+      ...r,
+      unit: u,
+      yen1: yenOf(r, r.p1),
+      yen2: yenOf(r, r.p2),
+      totalYen: getRecordTotal(r.site),
+    };
+  });
+
+  // 2) 画面のソート状態を反映
+  const k = sortState.key, dir = sortState.dir;
+  computed.sort((a, b) => {
+    const va = a[k], vb = b[k];
+    const isText = (k === "site" || k === "memo");
+    const res = isText
+      ? String(va ?? "").localeCompare(String(vb ?? ""), "ja")
+      : (Number(va ?? 0) - Number(vb ?? 0));
+    return dir === "asc" ? res : -res;
+  });
+
+  // 3) ヘッダー（表と同じ＋累計(円)）
+  const head = [
+    "サイト名","最低換金ポイント","換金額(円)","1pt(円)",
+    "pt1","pt1→円","pt2","pt2→円","メモ","累計(円)"
+  ];
   const lines = [head.join(",")];
 
-  arr.forEach(r => {
-    const row = [r.site, r.minpt, r.yen, r.p1 || "", r.p2 || "", r.memo || ""];
+  // 小数の見た目（表と同じ思想：1円未満は0.01、1円以上は0.1）
+  const moneyCSV = (x) => {
+    const v = Number(x) || 0;
+    if (v === 0) return "0";
+    return v < 1 ? v.toFixed(2) : (Math.round(v * 10) / 10).toFixed(1);
+  };
+
+  // 4) 行データ
+  computed.forEach(r => {
+    const row = [
+      r.site,
+      r.minpt,
+      r.yen,
+      r.unit.toFixed(4),         // 1pt(円)
+      r.p1 || "",
+      moneyCSV(r.yen1),          // pt1→円
+      r.p2 || "",
+      moneyCSV(r.yen2),          // pt2→円
+      r.memo || "",
+      moneyCSV(r.totalYen),      // ★ 累計(円)
+    ];
     lines.push(row.map(csvEsc).join(","));
   });
 
-  // ★ ここを追加（Excel対策：BOMを付ける）
-  const bom = "\uFEFF"; // ←これがUTF-8の目印！
-
-  // 改行コードもWindows用に統一しておく
+  // 5) Excel文字化け対策（BOM）＋CRLF
+  const bom = "\uFEFF";
   const csvText = bom + lines.join("\r\n");
-
   const blob = new Blob([csvText], { type: "text/csv;charset=utf-8;" });
+
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "poikatsu_unit.csv";
