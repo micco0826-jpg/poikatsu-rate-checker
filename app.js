@@ -154,6 +154,102 @@ function importCSV(file) {
   reader.readAsText(file, "utf-8");
 
 }
+/* ===== JSON Backup / Restore ===== */
+
+// レートの保存キー（既存）: "poikatsu_unit_split_v1"
+// 各サイトの換金記録キー: "poikatsu_logs_<サイト名>"
+
+function listLogKeys() {
+  const out = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('poikatsu_logs_')) out.push(k);
+  }
+  return out;
+}
+
+function collectLogs() {
+  const logs = {};
+  listLogKeys().forEach(k => {
+    const site = k.replace('poikatsu_logs_', '');
+    try {
+      logs[site] = JSON.parse(localStorage.getItem(k) || '[]');
+    } catch (_) { logs[site] = []; }
+  });
+  return logs;
+}
+
+// JSON出力（レート＋各サイト記録をスナップショット化）
+function exportJSON() {
+  const snapshot = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    rates: getData(),          // レート一覧（indexのテーブル）
+    logs: collectLogs(),       // 各サイトの換金記録 { "サイト名": [ {date,amt,memo}, ... ] }
+  };
+  const txt = JSON.stringify(snapshot, null, 2);
+  const blob = new Blob([txt], { type: "application/json;charset=utf-8" });
+  const a = document.createElement("a");
+
+  const pad = n => String(n).padStart(2, "0");
+  const d = new Date();
+  const name = `poikatsu_backup_${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}.json`;
+
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  flash("JSONを出力しました");
+}
+
+// JSON読み込み（スナップショットを適用）
+function importJSONFile(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const snap = JSON.parse(e.target.result);
+      if (!snap || !Array.isArray(snap.rates) || typeof snap.logs !== "object") {
+        alert("JSONの形式が正しくありません"); return;
+      }
+      if (!confirm("現在のデータをすべて置き換えます。よい？")) return;
+
+      // レートを置き換え
+      setData(snap.rates);
+
+      // 既存ログをいったん全削除してから、スナップショットを適用
+      listLogKeys().forEach(k => localStorage.removeItem(k));
+      Object.keys(snap.logs).forEach(site => {
+        const key = `poikatsu_logs_${site}`;
+        try {
+          localStorage.setItem(key, JSON.stringify(snap.logs[site] || []));
+        } catch (_) { }
+      });
+
+      render();
+      flash("JSONを復元しました");
+    } catch (err) {
+      console.error(err);
+      alert("JSONの読み込みに失敗しました");
+    } finally {
+      const inp = document.getElementById('json');
+      if (inp) inp.value = "";
+    }
+  };
+  reader.readAsText(file, "utf-8");
+}
+
+// ボタン→隠しinput の橋渡し
+function setupJSONImport() {
+  const btn = document.getElementById('jsonBtn');
+  const inp = document.getElementById('json');
+  if (!btn || !inp) return;
+
+  btn.addEventListener('click', () => inp.click());
+  inp.addEventListener('change', e => {
+    const f = e.target.files && e.target.files[0];
+    if (f) importJSONFile(f);
+  });
+}
 
 /* Render & sort */
 let sortState = { key: "site", dir: "asc" };
@@ -268,6 +364,7 @@ function parseCSVLine(line) {
   }
   render();
   setupCSVImport();   // ← これを追加
+  setupJSONImport();
   ;
 })();
 
