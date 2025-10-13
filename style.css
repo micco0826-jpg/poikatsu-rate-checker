@@ -197,18 +197,15 @@ td.actions    { text-align: right; white-space: nowrap; }
 .action-col {
   text-align: right;
 }
-/* カード同士の間隔を少し広げる */
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-  margin-bottom: 20px; /* ← ここを「20px」に変更（今12pxくらいのはず） */
+/* 換金記録のデータ操作カードだけ余白を微調整 */
+.ops-card .pill {
+  display: inline-block;
+  margin-bottom: 8px;   /* ← 12px → 8px にして自然に */
 }
 
-/* 最後のカード（データ操作）だけ、ちょっと余白を広めに */
-.card:last-of-type {
-  margin-bottom: 40px;
+.ops-card .file-input,
+.ops-card .btn.ghost {
+  margin-top: 4px;      /* ← 6px → 4px にして全体を少し詰める */
 }
 
 a.link { color:#333; text-decoration:none; font-weight:600; }
