@@ -1,34 +1,165 @@
-:root{
-  --bg:#fbf9f7; --card:#ffffff; --ink:#222; --muted:#6b6b6b; --line:#eee;
-  --accent:#f7b267; --accent-2:#ffd7a8; --pill:#2a2a2a;
+:root {
+  --bg: #fbf9f7;
+  --card: #ffffff;
+  --ink: #222;
+  --muted: #6b6b6b;
+  --line: #eee;
+  --accent: #f7b267;
+  --accent-2: #ffd7a8;
+  --pill: #2a2a2a;
 }
-*, *::before, *::after { box-sizing: border-box; }
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;}
-.wrap{max-width:1000px;margin:28px auto;padding:0 16px}
 
-.hero{display:flex;align-items:center;gap:12px;margin:0 0 12px}
-.hero .mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 6px 14px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;font-weight:800;color:#222}
-h1{font-size:22px;margin:0;font-weight:800;letter-spacing:.02em}
-.lead{color:var(--muted);font-size:13px;margin:2px 0 14px}
-.chip{display:inline-block;padding:3px 9px;border-radius:999px;background:var(--accent-2);font-weight:700;font-size:12px;color:#222}
-
-.card{background:var(--card);border-radius:18px;box-shadow:0 10px 26px rgba(0,0,0,.07);padding:16px}
-.pill{background:var(--pill);color:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:12px;display:inline-block}
-label{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
-input[type="text"],input[type="number"]{
-  width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:12px;font-size:15px;background:#fff;
-  appearance:none;-webkit-appearance:none;line-height:1.2;height:42px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-.btn{padding:12px 14px;border:0;border-radius:12px;background:var(--ink);color:#fff;font-weight:700;cursor:pointer;white-space:nowrap;height:42px}
-.btn.ghost{background:#ececec;color:#222}
-.btn.warn{background:#e45757}
-.btn.small{height:34px;padding:8px 10px;border-radius:10px;font-size:12px}
-.hint{font-size:12px;color:#8a8a8a;margin-top:6px}
 
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
-.form-grid > div{min-width:0}
-.form-grid .full{grid-column:1 / -1}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+.wrap {
+  max-width: 1000px;
+  margin: 28px auto;
+  padding: 0 16px
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px
+}
+
+.hero .mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #222
+}
+
+h1 {
+  font-size: 22px;
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: .02em
+}
+
+.lead {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 2px 0 14px
+}
+
+.chip {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--accent-2);
+  font-weight: 700;
+  font-size: 12px;
+  color: #222
+}
+
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .07);
+  padding: 16px
+}
+
+.pill {
+  background: var(--pill);
+  color: #fff;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 12px;
+  display: inline-block
+}
+
+label {
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 15px;
+  background: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  line-height: 1.2;
+  height: 42px;
+}
+
+.btn {
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  height: 42px
+}
+
+.btn.ghost {
+  background: #ececec;
+  color: #222
+}
+
+.btn.warn {
+  background: #e45757
+}
+
+.btn.small {
+  height: 34px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 12px
+}
+
+.hint {
+  font-size: 12px;
+  color: #8a8a8a;
+  margin-top: 6px
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: end
+}
+
+.form-grid>div {
+  min-width: 0
+}
+
+.form-grid .full {
+  grid-column: 1 / -1
+}
+
 /* グリッドの両列をまたぐ */
 .form-grid .full {
   grid-column: 1 / -1;
@@ -38,42 +169,131 @@ input[type="text"],input[type="number"]{
 .form-grid textarea#memo {
   width: 100%;
   min-height: 44px;
-  resize: vertical;     /* 好きに縦方向に伸縮OK */
+  resize: vertical;
+  /* 好きに縦方向に伸縮OK */
   line-height: 1.6;
 }
 
-.table-wrap{margin-top:16px;max-height:65vh;overflow:auto;position:relative;will-change:transform}
-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border-radius:14px;overflow:hidden}
-th,td{padding:14px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:middle}
-thead th{position:sticky;top:0;background:#f6f5f2;z-index:50;box-shadow:0 2px 0 rgba(0,0,0,0.04)}
-thead th.sortable{cursor:pointer;user-select:none}
-thead th.sortable:hover{background:#efece6}
-th .sort-ind{font-size:11px;color:var(--muted);margin-left:6px}
-td .mono{font-variant-numeric:tabular-nums}
-.right{text-align:right}
-.nowrap{white-space:nowrap}
-
-.file-input{position:relative;display:inline-flex;align-items:center;gap:8px}
-.file-input input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer}
-.file-input .btn{position:relative;z-index:1}
-
-.footer{color:#888;font-size:12px;margin:22px 0;text-align:center}
-.toast{
-  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
-  background: rgba(34,34,34,.9); color:#fff; padding:10px 14px;
-  border-radius:12px; font-size:13px; opacity:0; pointer-events:none;
-  transition: opacity .25s, transform .25s; z-index:9999;
+.table-wrap {
+  margin-top: 16px;
+  max-height: 65vh;
+  overflow: auto;
+  position: relative;
+  will-change: transform
 }
-.toast.show{ opacity:1; transform: translateX(-50%) translateY(-4px); }
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden
+}
+
+th,
+td {
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  vertical-align: middle
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: #f6f5f2;
+  z-index: 50;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.04)
+}
+
+thead th.sortable {
+  cursor: pointer;
+  user-select: none
+}
+
+thead th.sortable:hover {
+  background: #efece6
+}
+
+th .sort-ind {
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 6px
+}
+
+td .mono {
+  font-variant-numeric: tabular-nums
+}
+
+.right {
+  text-align: right
+}
+
+.nowrap {
+  white-space: nowrap
+}
+
+.file-input {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px
+}
+
+.file-input input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer
+}
+
+.file-input .btn {
+  position: relative;
+  z-index: 1
+}
+
+.footer {
+  color: #888;
+  font-size: 12px;
+  margin: 22px 0;
+  text-align: center
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: rgba(34, 34, 34, .9);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
 /* 単位の見た目 */
 .unit {
   color: #999;
   font-size: 0.85em;
   margin-left: 3px;
-  vertical-align: middle; /* ←数字と高さを合わせる */
+  vertical-align: middle;
+  /* ←数字と高さを合わせる */
 }
+
 /* クリックを透過させる（入力欄の操作をブロックしない） */
-.toast { pointer-events: none; }
+.toast {
+  pointer-events: none;
+}
 
 /* 入力欄の共通スタイル（input/textareaを同一に） */
 .form-grid input,
@@ -85,7 +305,7 @@ td .mono{font-variant-numeric:tabular-nums}
   padding: 14px 16px;
   font-size: 16px;
   line-height: 1.6;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.02) inset;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
 }
 
 /* フォーカス時の枠・影も統一 */
@@ -93,17 +313,20 @@ td .mono{font-variant-numeric:tabular-nums}
 .form-grid textarea:focus {
   outline: none;
   border-color: #d8d8d8;
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
 }
 
 /* メモ用テキストエリアの調整（高さ・リサイズ） */
 .form-grid textarea#memo {
-  min-height: 56px;     /* inputと近い高さからスタート */
-  resize: vertical;     /* 必要なら縦に伸ばせる */
+  min-height: 56px;
+  /* inputと近い高さからスタート */
+  resize: vertical;
+  /* 必要なら縦に伸ばせる */
 }
 
 /* メモをフォーム2列ぶち抜きで */
-.form-grid .full {       /* 既にあればそのままでOK */
+.form-grid .full {
+  /* 既にあればそのままでOK */
   grid-column: 1 / -1;
 }
 
@@ -115,7 +338,8 @@ td .mono{font-variant-numeric:tabular-nums}
 
 /* テーブル内ボタンの位置揃え */
 #tbl td {
-  vertical-align: middle; /* 行の中央にボタンを揃える */
+  vertical-align: middle;
+  /* 行の中央にボタンを揃える */
 }
 
 /* 編集・削除ボタンの余白を統一 */
@@ -128,10 +352,20 @@ td .mono{font-variant-numeric:tabular-nums}
   font-size: 14px;
   line-height: 1;
   white-space: nowrap;
-  margin: 2px 4px; /* 並んでもギュッとしないように */
+  margin: 2px 4px;
+  /* 並んでもギュッとしないように */
 }
-th.action-col { width: 80px; }      /* 操作列の幅を小さめに */
-td.actions    { text-align: right; white-space: nowrap; }
+
+th.action-col {
+  width: 80px;
+}
+
+/* 操作列の幅を小さめに */
+td.actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
 /* 入力フォーム全体の見た目を調整 */
 .form-grid input[type="date"],
 .form-grid input[type="number"] {
@@ -139,7 +373,8 @@ td.actions    { text-align: right; white-space: nowrap; }
   height: 40px;
   padding: 6px 10px;
   font-size: 16px;
-  font-family: inherit; /* 全体と同じフォントに */
+  font-family: inherit;
+  /* 全体と同じフォントに */
   border: 1px solid #ccc;
   border-radius: 6px;
   box-sizing: border-box;
@@ -170,79 +405,110 @@ td.actions    { text-align: right; white-space: nowrap; }
   font-size: 16px;
   border-radius: 6px;
 }
+
 /* タイトルと説明文を下端でそろえる */
 .hero {
   display: flex;
-  align-items: flex-end;      /* 下端揃え */
+  align-items: flex-end;
+  /* 下端揃え */
   gap: 12px;
 }
+
 .hero h1 {
   margin: 0;
   line-height: 1.1;
 }
+
 .hero .note {
-  margin: 0 0 2px 0;          /* 少しだけ下げて視覚合わせ */
+  margin: 0 0 2px 0;
+  /* 少しだけ下げて視覚合わせ */
   color: #666;
   font-size: 14px;
 }
+
 /* メモ列が折り返せるように */
 .table-wrap table {
   table-layout: fixed;
   width: 100%;
 }
+
 .table-wrap td:nth-child(3),
 .table-wrap th:nth-child(3) {
-  word-break: break-word;  /* 長いメモも折り返し */
+  word-break: break-word;
+  /* 長いメモも折り返し */
 }
+
 .action-col {
   text-align: right;
 }
+
 /* 換金記録のデータ操作カードだけ余白を微調整 */
 .ops-card .pill {
   display: inline-block;
-  margin-bottom: 8px;   /* ← 12px → 8px にして自然に */
+  margin-bottom: 8px;
+  /* ← 12px → 8px にして自然に */
 }
 
 .ops-card .file-input,
 .ops-card .btn.ghost {
-  margin-top: 4px;      /* ← 6px → 4px にして全体を少し詰める */
+  margin-top: 4px;
+  /* ← 6px → 4px にして全体を少し詰める */
 }
 
-a.link { color:#333; text-decoration:none; font-weight:600; }
-a.link:hover { color:#0078aa; text-decoration:underline; }
+a.link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a.link:hover {
+  color: #0078aa;
+  text-decoration: underline;
+}
+
 a.link[target="_blank"]::after {
   content: "↗";
   font-size: 0.8em;
   margin-left: 4px;
   opacity: 0.5;
 }
+
 @media (max-width: 600px) {
   .card .btn {
-    flex: 1 1 45%; /* 幅を均等にして2列配置 */
+    flex: 1 1 45%;
+    /* 幅を均等にして2列配置 */
     font-size: 14px;
   }
+
   .card div[style*="display:flex"] {
-    justify-content: center; /* ボタンを中央寄せ */
+    justify-content: center;
+    /* ボタンを中央寄せ */
   }
 }
+
 /* ---------- スマホ時はテーブルを横スクロールにする ---------- */
 @media (max-width: 768px) {
+
   /* テーブルを包んでるカードに横スクロールを許可 */
   .table-wrap {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* iOSでぬるっと */
+    -webkit-overflow-scrolling: touch;
+    /* iOSでぬるっと */
   }
 
   /* テーブル自体は最小幅を確保（列が潰れないように） */
   #tbl {
-    min-width: 900px;       /* 列数に合わせて 800〜1000px くらいが目安 */
-    table-layout: fixed;    /* 列幅計算を安定させる */
+    min-width: 900px;
+    /* 列数に合わせて 800〜1000px くらいが目安 */
+    table-layout: fixed;
+    /* 列幅計算を安定させる */
   }
 
   /* 文字が縦に折れて崩れないように */
   #tbl th,
   #tbl td {
-    white-space: nowrap;    /* 改行せず横に流す */
+    white-space: nowrap;
+    /* 改行せず横に流す */
     padding: 10px 12px;
   }
 
@@ -255,50 +521,62 @@ a.link[target="_blank"]::after {
   /* 操作用ボタンの列は幅を固定して崩れないように */
   #tbl td .btn.small,
   #tbl th.action-col {
-    width: 90px;            /* ボタン1個分の幅を確保 */
+    width: 90px;
+    /* ボタン1個分の幅を確保 */
     text-align: right;
   }
 }
+
 /* ▼スマホで編集・削除ボタンが見えない対策 */
-@media (max-width: 600px){
-  .table-wrap td.actions{
+@media (max-width: 600px) {
+  .table-wrap td.actions {
     display: flex;
     justify-content: flex-end;
     gap: 8px;
-    flex-wrap: wrap;     /* 折り返しOK */
-    white-space: normal; /* テキスト折り返し許可 */
+    flex-wrap: wrap;
+    /* 折り返しOK */
+    white-space: normal;
+    /* テキスト折り返し許可 */
   }
 
-  .table-wrap td.actions .btn.small{
+  .table-wrap td.actions .btn.small {
     padding: 6px 10px;
     font-size: 14px;
   }
 
   /* 操作列（編集・削除ボタン）の幅をちょっと広げる */
-  .table-wrap col:last-child{
+  .table-wrap col:last-child {
     width: 160px !important;
   }
 }
 
-@media (max-width: 600px){
-  body { background: pink !important; }
+@media (max-width: 600px) {
+  body {
+    background: pink !important;
+  }
 }
+
 body {
-  background: #ffeef2; /* 優しいくすみピンク */
+  background: #ffeef2;
+  /* 優しいくすみピンク */
 }
 
 .card {
-  background: #fff;     /* 中は白で清潔感 */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background: #fff;
+  /* 中は白で清潔感 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .pill {
-  background: #ff9fb7;  /* ピル部分は濃いめのピンクでアクセント */
+  background: #ff9fb7;
+  /* ピル部分は濃いめのピンクでアクセント */
 }
 
 .table-wrap {
-  padding-right: 20px; /* ←これを追加！ */
+  padding-right: 20px;
+  /* ←これを追加！ */
 }
+
 /* テーブルは固定レイアウト＋100%で均等に */
 .table-wrap table {
   width: 100%;
@@ -308,37 +586,48 @@ body {
 /* アクション列（編集/削除）に十分な幅を確保 */
 .table-wrap th.action-col,
 .table-wrap td.action-col {
-  width: 140px;         /* ←120〜160pxの範囲で調整OK */
+  width: 140px;
+  /* ←120〜160pxの範囲で調整OK */
   text-align: right;
 }
 
 /* 右端が切れないように少し内側に寄せる */
 .table-wrap td.action-col {
-  padding-right: 16px;  /* ←これが“切れ”防止の決め手 */
+  padding-right: 16px;
+  /* ←これが“切れ”防止の決め手 */
 }
 
 /* ボタン間の余白（お好みで） */
-.table-wrap td.action-col .btn + .btn {
+.table-wrap td.action-col .btn+.btn {
   margin-left: 8px;
 }
 
 /* 念のため：テーブルブロックに右余白も1枚追加して保険 */
 .table-wrap {
   padding-right: 16px;
-  overflow: visible;    /* これで親の角丸で切られにくくする */
+  overflow-x: auto;
+  /* 横スクロールOK */
+  overflow-y: hidden;
+  /* 縦にはみ出さないように */
 }
+
 /* 右端のボタン列をキュッと */
 .table-wrap td.action-col,
 .table-wrap th:last-child {
-  width: 120px;          /* 110～140pxの間で好みに調整 */
-  text-align: right;     /* 右寄せ */
-  padding-right: 8px;    /* 余白を控えめに（4～12pxで調整可） */
-  white-space: nowrap;   /* ボタンを折り返さない */
+  width: 120px;
+  /* 110～140pxの間で好みに調整 */
+  text-align: right;
+  /* 右寄せ */
+  padding-right: 8px;
+  /* 余白を控えめに（4～12pxで調整可） */
+  white-space: nowrap;
+  /* ボタンを折り返さない */
 }
 
 /* ボタン同士の間隔は少しだけ */
 .table-wrap td.action-col .btn {
-  margin-left: 6px;      /* 4～8pxで調整可 */
+  margin-left: 6px;
+  /* 4～8pxで調整可 */
 }
 
 /* 念のため表のセル余白をゼロ（環境で広がるのを防ぐ） */
@@ -350,7 +639,8 @@ body {
 /* 表の全体幅を均等に整える */
 .table-wrap table {
   width: 100%;
-  table-layout: fixed; /* 固定幅計算でバランスを取りやすく */
+  table-layout: fixed;
+  /* 固定幅計算でバランスを取りやすく */
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -363,24 +653,6 @@ body {
   vertical-align: middle;
   word-wrap: break-word;
 }
-
-/* サイト名～pt②→円まではやや均等寄りに調整 */
-.table-wrap th:nth-child(1),
-.table-wrap td:nth-child(1) { width: 13%; } /* サイト名 */
-.table-wrap th:nth-child(2),
-.table-wrap td:nth-child(2) { width: 10%; } /* 最低換金pt */
-.table-wrap th:nth-child(3),
-.table-wrap td:nth-child(3) { width: 10%; } /* 換金額 */
-.table-wrap th:nth-child(4),
-.table-wrap td:nth-child(4) { width: 10%; } /* 1pt(円) */
-.table-wrap th:nth-child(5),
-.table-wrap td:nth-child(5) { width: 8%; }  /* pt① */
-.table-wrap th:nth-child(6),
-.table-wrap td:nth-child(6) { width: 9%; }  /* pt①→円 */
-.table-wrap th:nth-child(7),
-.table-wrap td:nth-child(7) { width: 8%; }  /* pt② */
-.table-wrap th:nth-child(8),
-.table-wrap td:nth-child(8) { width: 9%; }  /* pt②→円 */
 
 /* メモをちょい広め（見やすさ重視） */
 .table-wrap th:nth-child(9),
@@ -404,7 +676,8 @@ body {
 
 .table-wrap table {
   width: 100%;
-  table-layout: fixed; /* colgroupを効かせる */
+  table-layout: fixed;
+  /* colgroupを効かせる */
   border-collapse: collapse;
 }
 
@@ -420,37 +693,108 @@ body {
   text-align: right;
   white-space: nowrap;
 }
+
 /* 表の基礎（colgroup効かない場合に備えて固定レイアウト化） */
-.table-wrap table{
+.table-wrap table {
   width: 100%;
   table-layout: fixed;
 }
 
 /* ===== 列幅の強制指定（!important で確実に反映） ===== */
 .table-wrap th:nth-child(1),
-.table-wrap td:nth-child(1){ width: 13% !important; } /* サイト名 */
+.table-wrap td:nth-child(1) {
+  width: 13% !important;
+}
+
+/* サイト名 */
 .table-wrap th:nth-child(2),
-.table-wrap td:nth-child(2){ width: 11% !important; } /* 最低換金pt */
+.table-wrap td:nth-child(2) {
+  width: 11% !important;
+}
+
+/* 最低換金pt */
 .table-wrap th:nth-child(3),
-.table-wrap td:nth-child(3){ width: 11% !important; } /* 換金額 */
+.table-wrap td:nth-child(3) {
+  width: 11% !important;
+}
+
+/* 換金額 */
 .table-wrap th:nth-child(4),
-.table-wrap td:nth-child(4){ width: 10% !important; } /* 1pt(円) */
+.table-wrap td:nth-child(4) {
+  width: 10% !important;
+}
+
+/* 1pt(円) */
 .table-wrap th:nth-child(5),
-.table-wrap td:nth-child(5){ width: 9%  !important; } /* pt① */
+.table-wrap td:nth-child(5) {
+  width: 9% !important;
+}
+
+/* pt① */
 .table-wrap th:nth-child(6),
-.table-wrap td:nth-child(6){ width: 9%  !important; } /* pt①→円 */
+.table-wrap td:nth-child(6) {
+  width: 9% !important;
+}
+
+/* pt①→円 */
 .table-wrap th:nth-child(7),
-.table-wrap td:nth-child(7){ width: 9%  !important; } /* pt② */
+.table-wrap td:nth-child(7) {
+  width: 9% !important;
+}
+
+/* pt② */
 .table-wrap th:nth-child(8),
-.table-wrap td:nth-child(8){ width: 9%  !important; } /* pt②→円 */
+.table-wrap td:nth-child(8) {
+  width: 9% !important;
+}
+
+/* pt②→円 */
 .table-wrap th:nth-child(9),
-.table-wrap td:nth-child(9){ width: 14% !important; } /* メモ（広め） */
+.table-wrap td:nth-child(9) {
+  width: 14% !important;
+}
+
+/* メモ（広め） */
 .table-wrap th:nth-child(10),
-.table-wrap td:nth-child(10){ width: 6% !important;  } /* 編集/削除 */
+.table-wrap td:nth-child(10) {
+  width: 6% !important;
+}
+
+/* 編集/削除 */
 
 /* 右端の操作列は詰める＆折り返し防止 */
 .table-wrap th:last-child,
-.table-wrap td:last-child{
+.table-wrap td:last-child {
   text-align: right;
   white-space: nowrap;
+}
+
+/* 1) html と body を同じ色にして統一 */
+:root {
+  --page-bg: #ffeaf0;
+}
+
+/* ←好きなピンクに */
+html,
+body {
+  background: var(--page-bg) !important;
+}
+
+/* 2) ページ全体を確実に塗りつぶす（念のため） */
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* 3) もし昔の装飾で body::before / html の背景画像やグラデが残っていたら無効化 */
+body::before,
+body::after,
+html::before,
+html::after {
+  background: none !important;
+  content: none !important;
 }
