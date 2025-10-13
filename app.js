@@ -273,12 +273,12 @@ function render(opts = {}) {
   computed.forEach(r => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
- <td>
-  <a href="./records.html?site=${encodeURIComponent(r.site)}"
-     class="link" target="_blank" rel="noopener noreferrer">
-    ${escapeHTML(r.site)}
-  </a>
-</td>
+  <td>
+    <a href="./records.html?site=${encodeURIComponent(r.site)}"
+       class="link" target="_blank" rel="noopener noreferrer">
+       ${escapeHTML(r.site)}
+    </a>
+  </td>
   <td class="right mono">${r.minpt}<span class="unit">pt</span></td>
   <td class="right mono">${r.yen}<span class="unit">円</span></td>
   <td class="right mono">${r.unit.toFixed(4)}<span class="unit">円</span></td>
@@ -287,9 +287,9 @@ function render(opts = {}) {
   <td class="right mono">${r.p2 || 0}<span class="unit">pt</span></td>
   <td class="right mono">${fmtMoney(r.yen2)}<span class="unit">円</span></td>
   <td>${escapeHTML(r.memo || "")}</td>
-  <td>
+  <td class="actions">
     <button type="button" class="btn ghost small" onclick="edit(${r._i})">編集</button>
-    <button type="button" class="btn warn small" onclick="delRow(${r._i})">削除</button>
+    <button type="button" class="btn warn small"  onclick="delRow(${r._i})">削除</button>
   </td>
 `;
     tb.appendChild(tr);
