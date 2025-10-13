@@ -197,3 +197,16 @@ td.actions    { text-align: right; white-space: nowrap; }
 .action-col {
   text-align: right;
 }
+/* カード同士の間隔を少し広げる */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  margin-bottom: 20px; /* ← ここを「20px」に変更（今12pxくらいのはず） */
+}
+
+/* 最後のカード（データ操作）だけ、ちょっと余白を広めに */
+.card:last-of-type {
+  margin-bottom: 40px;
+}
