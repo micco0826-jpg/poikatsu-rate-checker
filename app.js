@@ -178,7 +178,8 @@ function render(opts = {}) {
     const tr = document.createElement("tr");
     tr.innerHTML = `
  <td>
-  <a href="./records.html?site=${encodeURIComponent(r.site)}" class="link">
+  <a href="./records.html?site=${encodeURIComponent(r.site)}"
+     class="link" target="_blank" rel="noopener noreferrer">
     ${escapeHTML(r.site)}
   </a>
 </td>
