@@ -176,7 +176,7 @@ input[type="number"] {
 
 .table-wrap {
   margin-top: 16px;
-  max-height: 65vh;
+
   overflow: auto;
   position: relative;
   will-change: transform
