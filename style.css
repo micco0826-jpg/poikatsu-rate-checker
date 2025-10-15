@@ -425,12 +425,6 @@ td.actions {
   font-size: 14px;
 }
 
-/* メモ列が折り返せるように */
-.table-wrap table {
-  table-layout: fixed;
-  width: 100%;
-}
-
 .table-wrap td:nth-child(3),
 .table-wrap th:nth-child(3) {
   word-break: break-word;
@@ -494,15 +488,6 @@ a.link[target="_blank"]::after {
     -webkit-overflow-scrolling: touch;
     /* iOSでぬるっと */
   }
-
-  /* テーブル自体は最小幅を確保（列が潰れないように） */
-  #tbl {
-    min-width: 900px;
-    /* 列数に合わせて 800〜1000px くらいが目安 */
-    table-layout: fixed;
-    /* 列幅計算を安定させる */
-  }
-
   /* 小さな単位（円 / pt）を控えめに */
   .unit {
     font-size: 12px;
@@ -552,13 +537,6 @@ body {
   background: #ff9fb7;
   /* ピル部分は濃いめのピンクでアクセント */
 }
-
-/* テーブルは固定レイアウト＋100%で均等に */
-.table-wrap table {
-  width: 100%;
-  table-layout: fixed;
-}
-
 /* ボタン間の余白（お好みで） */
 .table-wrap td.action-col .btn+.btn {
   margin-left: 8px;
@@ -576,16 +554,6 @@ body {
   border-spacing: 0;
 }
 
-/* 表の全体幅を均等に整える */
-.table-wrap table {
-  width: 100%;
-  table-layout: fixed;
-  /* 固定幅計算でバランスを取りやすく */
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-
 /* メモをちょい広め（見やすさ重視） */
 .table-wrap th:nth-child(9),
 .table-wrap td:nth-child(9) {
@@ -598,26 +566,11 @@ body {
   margin-left: 4px;
 }
 
-.table-wrap table {
-  width: 100%;
-  table-layout: fixed;
-  /* colgroupを効かせる */
-  border-collapse: collapse;
-}
-
 .table-wrap th,
 .table-wrap td {
   padding: 8px 10px;
   vertical-align: middle;
   text-align: left;
-}
-
-
-
-/* 表の基礎（colgroup効かない場合に備えて固定レイアウト化） */
-.table-wrap table {
-  width: 100%;
-  table-layout: fixed;
 }
 
 /* 1) html と body を同じ色にして統一 */
@@ -744,7 +697,21 @@ html::after {
 @media (max-width: 768px){
   #tbl { min-width: 980px; } /* 900→980 など好みで */
 }
+/* ▼表レイアウトはこれ1つでOK：重複は削除 */
+#tbl {
+  width: 100%;
+  min-width: 900px;        /* スマホで横スクロールしたいときは残す */
+  table-layout: fixed;     /* colgroupの幅を効かせたいのでfixed */
+  border-collapse: separate;
+  border-spacing: 0;
+}
 
+/* もし sticky ヘッダを使っているなら th/td の共通余白だけ定義 */
+#tbl th, #tbl td {
+  padding: 8px 10px;       /* お好みで */
+  vertical-align: middle;
+  text-align: left;
+}
 /* サイト名の列だけ幅を指定（強制） */
 #tbl th:first-child,
 #tbl td:first-child {
