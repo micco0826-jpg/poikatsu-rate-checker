@@ -744,3 +744,11 @@ html::after {
 @media (max-width: 768px){
   #tbl { min-width: 980px; } /* 900→980 など好みで */
 }
+
+/* サイト名の列だけ幅を指定（強制） */
+#tbl th:first-child,
+#tbl td:first-child {
+  width: 160px !important; /* ←pxで書いた方が効く！ */
+  min-width: 160px;
+  white-space: nowrap;
+}
