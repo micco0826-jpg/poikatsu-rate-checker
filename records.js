@@ -139,7 +139,7 @@ function wireEvents(){
     const t = document.getElementById("title");
     if(t){ t.textContent = `換金記録：${site}`; document.title = `換金記録｜${site}`; }
   }
-
+  setPillLabel();   // ← ここを追加（ページ読み込み時にラベル反映）
   const today = new Date().toISOString().slice(0,10);
   const d = document.getElementById("date"); if(d) d.value = today;
 
@@ -162,7 +162,14 @@ function updateTotal() {
   const total = arr.reduce((sum, r) => sum + Number(r.amt || 0), 0);
   document.getElementById("totalAmount").textContent =
     total.toLocaleString() + "円";
+     setPillLabel();
 }
 
 // ページ読み込み時にも実行
 updateTotal();
+
+function setPillLabel(){
+  const pill = document.querySelector('.total-card .pill');
+  if (!pill) return;
+  pill.textContent = site ? `💰 ${site} の換金総額` : '💰 今までの換金総額';
+}
