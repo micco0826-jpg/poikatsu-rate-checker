@@ -1,12 +1,20 @@
 :root {
   --bg: #fbf9f7;
+  /* 背景（全体） */
   --card: #ffffff;
+  /* カード背景 */
   --ink: #222;
+  /* 本文テキスト色 */
   --muted: #6b6b6b;
+  /* 補助テキスト色 */
   --line: #eee;
+  /* 枠線・罫線 */
   --accent: #f7b267;
+  /* アクセントカラー（メイン） */
   --accent-2: #ffd7a8;
-  --pill: #2a2a2a;
+  /* アクセント補色（グラデ用） */
+  --pill: #ff9fb7;
+  /* ピルバッジ背景 */
 }
 
 *,
@@ -25,11 +33,12 @@ body {
 }
 
 .wrap {
-  max-width: 1000px;
+  max-width: 1080px;
   margin: 28px auto;
   padding: 0 16px
 }
 
+/*　タイトル周りの見た目*/
 .hero {
   display: flex;
   align-items: center;
@@ -37,6 +46,7 @@ body {
   margin: 0 0 12px
 }
 
+/* hero左横のロゴ風マーク（未使用中） */
 .hero .mark {
   width: 38px;
   height: 38px;
@@ -50,6 +60,7 @@ body {
   color: #222
 }
 
+/* タイトル*/
 h1 {
   font-size: 22px;
   margin: 0;
@@ -488,6 +499,7 @@ a.link[target="_blank"]::after {
     -webkit-overflow-scrolling: touch;
     /* iOSでぬるっと */
   }
+
   /* 小さな単位（円 / pt）を控えめに */
   .unit {
     font-size: 12px;
@@ -533,10 +545,6 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.pill {
-  background: #ff9fb7;
-  /* ピル部分は濃いめのピンクでアクセント */
-}
 /* ボタン間の余白（お好みで） */
 .table-wrap td.action-col .btn+.btn {
   margin-left: 8px;
@@ -687,35 +695,48 @@ html::after {
   color: #fff;
   font-size: 13px;
 }
+
 /* 累計(円) 列は右寄せ（保険） */
 #tbl th[data-k="totalYen"],
-#tbl td:nth-child(10) {  /* colgroupに合わせて番号がズレたら要調整 */
+#tbl td:nth-child(10) {
+  /* colgroupに合わせて番号がズレたら要調整 */
   text-align: right;
 }
 
 /* スマホ時、表の最小幅を少し広げて窮屈さ回避（任意） */
-@media (max-width: 768px){
-  #tbl { min-width: 980px; } /* 900→980 など好みで */
+@media (max-width: 768px) {
+  #tbl {
+    min-width: 980px;
+  }
+
+  /* 900→980 など好みで */
 }
+
 /* ▼表レイアウトはこれ1つでOK：重複は削除 */
 #tbl {
   width: 100%;
-  min-width: 900px;        /* スマホで横スクロールしたいときは残す */
-  table-layout: fixed;     /* colgroupの幅を効かせたいのでfixed */
+  min-width: 900px;
+  /* スマホで横スクロールしたいときは残す */
+  table-layout: fixed;
+  /* colgroupの幅を効かせたいのでfixed */
   border-collapse: separate;
   border-spacing: 0;
 }
 
 /* もし sticky ヘッダを使っているなら th/td の共通余白だけ定義 */
-#tbl th, #tbl td {
-  padding: 8px 10px;       /* お好みで */
+#tbl th,
+#tbl td {
+  padding: 8px 10px;
+  /* お好みで */
   vertical-align: middle;
   text-align: left;
 }
+
 /* サイト名の列だけ幅を指定（強制） */
 #tbl th:first-child,
 #tbl td:first-child {
-  width: 160px !important; /* ←pxで書いた方が効く！ */
+  width: 160px !important;
+  /* ←pxで書いた方が効く！ */
   min-width: 160px;
   white-space: nowrap;
 }
