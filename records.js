@@ -69,10 +69,12 @@ function add(){
   setData(arr);
 
   render({ scroll:true });
-  $("#amt").value  = "";
+  updateTotal();            // ← これを追加！
+  $("#amt").value = "";
   $("#memo").value = "";
   flash("保存しました");
 }
+
 window.add = add; // 念のためグローバルにも公開（保険）
 
 // ===== 削除 =====
@@ -152,10 +154,14 @@ function wireEvents(){
 
   wireEvents();
   render();
+  updateTotal();            // ← これを追加！
 })();
+
 function updateTotal() {
-  const total = records.reduce((sum, r) => sum + Number(r.amount || 0), 0);
-  document.getElementById("totalAmount").textContent = total.toLocaleString() + "円";
+  const arr = getData();
+  const total = arr.reduce((sum, r) => sum + Number(r.amt || 0), 0);
+  document.getElementById("totalAmount").textContent =
+    total.toLocaleString() + "円";
 }
 
 // ページ読み込み時にも実行
