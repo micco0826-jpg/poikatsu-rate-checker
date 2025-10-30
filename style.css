@@ -763,11 +763,3 @@ html::after {
   #tbl .unit { font-size: 11px; }
 }
 
-<!-- colgroup の1列目だけ幅を少し増やす（例：13.5% → 16%） -->
-<colgroup>
-  <col style="width:16%">   <!-- サイト名 -->
-  <col style="width:11.5%">
-  <col style="width:11.5%">
-  <col style="width:10.5%">
-  <!-- …以下同じ … -->
-</colgroup>
