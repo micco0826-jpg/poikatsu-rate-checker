@@ -735,8 +735,15 @@ html::after {
 /* サイト名の列だけ幅を指定（強制） */
 #tbl th:first-child,
 #tbl td:first-child {
-  width: 160px !important;
+  width: 140px !important;
   /* ←pxで書いた方が効く！ */
-  min-width: 160px;
+  min-width: 140px;
   white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  /* サイト名の文字を少し小さくする */
+  #tbl td:first-child {
+    font-size: 14px;
+  }
 }
