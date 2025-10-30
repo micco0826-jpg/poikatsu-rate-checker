@@ -742,6 +742,7 @@ html::after {
 }
 
 @media (max-width: 768px) {
+
   /* サイト名の文字を少し小さくする */
   #tbl td:first-child {
     font-size: 14px;
@@ -749,17 +750,86 @@ html::after {
 }
 
 /* ── スマホだけ：サイト名（1列目）を小さめ＋折り返し可に ── */
-@media (max-width: 600px){
+@media (max-width: 600px) {
+
   #tbl th:first-child,
-  #tbl td:first-child{
-    font-size: 15px;           /* ←今より一段小さく（必要なら14px） */
+  #tbl td:first-child {
+    font-size: 15px;
+    /* ←今より一段小さく（必要なら14px） */
     line-height: 1.25;
-    white-space: normal;       /* 折り返し許可 */
-    word-break: break-word;    /* 英数/長語も割る */
+    white-space: normal;
+    /* 折り返し許可 */
+    word-break: break-word;
+    /* 英数/長語も割る */
   }
+
   /* ついでに全セルの左右パディングを少し詰めると被りにくい */
-  #tbl th, #tbl td { padding: 10px 8px; }
+  #tbl th,
+  #tbl td {
+    padding: 10px 8px;
+  }
+
   /* 単位はさらに小さめにして圧縮 */
-  #tbl .unit { font-size: 11px; }
+  #tbl .unit {
+    font-size: 11px;
+  }
 }
 
+/* ── スマホ版（幅600px以下）のテーブル調整 ── */
+@media (max-width: 600px) {
+
+  /* サイト名列をコンパクトに */
+  #tbl col:first-child {
+    width: 100px !important;
+    /* ←見て調整。90〜110pxが目安 */
+  }
+
+  /* サイト名の文字を小さめ＋折り返しOK */
+  #tbl th:first-child,
+  #tbl td:first-child {
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* 単位や数値の詰まり対策 */
+  #tbl .unit {
+    font-size: 11px;
+  }
+
+  /* 全体的に余白を少し詰めてコンパクトに */
+  #tbl th,
+  #tbl td {
+    padding: 8px 6px;
+  }
+}
+
+
+/* ── スマホ版（幅600px以下）のテーブル調整 ── */
+@media (max-width: 600px) {
+  /* サイト名列をコンパクトに */
+  #tbl col:first-child {
+    width: 100px !important; /* ←見て調整。90〜110pxが目安 */
+  }
+
+  /* サイト名の文字を小さめ＋折り返しOK */
+  #tbl th:first-child,
+  #tbl td:first-child {
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  /* 単位や数値の詰まり対策 */
+  #tbl .unit {
+    font-size: 11px;
+  }
+
+  /* 全体的に余白を少し詰めてコンパクトに */
+  #tbl th,
+  #tbl td {
+    padding: 8px 6px;
+  }
+}
