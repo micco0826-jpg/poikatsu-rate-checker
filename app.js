@@ -135,8 +135,8 @@ function exportCSV() {
 
   // 3) ヘッダー（表と同じ＋累計(円)）
   const head = [
-    "サイト名","最低換金ポイント","換金額(円)","1pt(円)",
-    "pt1","pt1→円","pt2","pt2→円","メモ","累計(円)"
+    "サイト名", "最低換金ポイント", "換金額(円)", "1pt(円)",
+    "pt1", "pt1→円", "pt2", "pt2→円", "メモ", "累計(円)"
   ];
   const lines = [head.join(",")];
 
@@ -180,31 +180,67 @@ function exportCSV() {
 function importCSV(file) {
   const reader = new FileReader();
   reader.onload = (e) => {
-    const txt = e.target.result;
-    const rows = txt.split(/\r?\n/).filter(Boolean);
-    const out = [];
-    let start = 0;
-    if (/サイト名/.test(rows[0])) start = 1;
-    for (let i = start; i < rows.length; i++) {
-      const cols = parseCSVLine(rows[i]);
-      if (cols.length < 3) continue;
-      out.push({
-        site: cols[0],
-        minpt: Number(cols[1] || 0),
-        yen: Number(cols[2] || 0),
-        p1: Number(cols[3] || 0),
-        p2: Number(cols[4] || 0),
-        memo: cols[5] || ""
-      });
+    // 改行・BOMを正規化
+    const txt = String(e.target.result || "").replace(/\r/g, "");
+    const lines = txt.split("\n").filter(Boolean);
+    if (lines.length === 0) return;
+
+    // 先頭行をパース（ヘッダーが無いCSVは従来ロジックにフォールバック）
+    const headerCells = parseCSVLine(lines[0] || "");
+    const hasHeader = headerCells.some(c => /サイト名|最低|換金|pt|メモ/.test(c));
+
+    // ヘッダー名→index の取得ヘルパー
+    const findIdx = (re) => headerCells.findIndex(h => re.test(h || ""));
+
+    let iSite, iMinpt, iYen, iP1, iP2, iMemo;
+
+    if (hasHeader) {
+      // できるだけ「pt①（ポイントの方）」を選び、「pt①→円」は除外
+      iSite = findIdx(/サイト名/);
+      iMinpt = findIdx(/最低.*換金|最低換金ポイント/);
+      iYen = findIdx(/換金額/);
+
+      // pt①/pt②（ポイント）を優先して拾う。→円列は除外。
+      iP1 = headerCells.findIndex(h => /pt①/.test(h) && !/→円/.test(h));
+      if (iP1 === -1) iP1 = headerCells.findIndex(h => /^pt1(?!.*円)/i.test(h)); // 英数表記の保険
+
+      iP2 = headerCells.findIndex(h => /pt②/.test(h) && !/→円/.test(h));
+      if (iP2 === -1) iP2 = headerCells.findIndex(h => /^pt2(?!.*円)/i.test(h));
+
+      iMemo = findIdx(/メモ/);
+
+    } else {
+      // ヘッダー無し CSV：従来の並びにフォールバック
+      iSite = 0; iMinpt = 1; iYen = 2; iP1 = 3; iP2 = 4; iMemo = 5;
     }
+
+    const out = [];
+    // ヘッダー有りなら 1 行目はスキップ
+    for (let i = hasHeader ? 1 : 0; i < lines.length; i++) {
+      const cols = parseCSVLine(lines[i]);
+
+      const row = {
+        site: (cols[iSite] ?? "").trim(),
+        minpt: Number(cols[iMinpt] ?? 0),
+        yen: Number(cols[iYen] ?? 0),
+        p1: Number(cols[iP1] ?? 0),
+        p2: Number(cols[iP2] ?? 0),
+        memo: (cols[iMemo] ?? "").trim()
+      };
+
+      // 最低限のバリデーション（サイト名と換金額あたりが揃っていれば採用）
+      if (row.site || row.yen || row.minpt || row.p1 || row.p2 || row.memo) {
+        out.push(row);
+      }
+    }
+
     setData(out);
     render();
-    // CSV読み込み完了時に追加
     flash("CSVを読み込みました");
   };
   reader.readAsText(file, "utf-8");
-
 }
+
 /* ===== JSON Backup / Restore ===== */
 
 // レートの保存キー（既存）: "poikatsu_unit_split_v1"
@@ -309,7 +345,7 @@ function render(opts = {}) {
   const computed = arr.map((r, idx) => {
     const u = unit(r);
     const totalYen = getRecordTotal(r.site);
-    return { ...r, _i: idx, unit: u, yen1: yenOf(r, r.p1), yen2: yenOf(r, r.p2) , totalYen};
+    return { ...r, _i: idx, unit: u, yen1: yenOf(r, r.p1), yen2: yenOf(r, r.p2), totalYen };
   });
   // sort
   const k = sortState.key, dir = sortState.dir;
