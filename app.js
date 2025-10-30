@@ -135,8 +135,8 @@ function exportCSV() {
 
   // 3) ヘッダー（表と同じ＋累計(円)）
   const head = [
-    "サイト名","最低換金ポイント","換金額(円)","1pt(円)",
-    "pt1","pt1→円","pt2","pt2→円","メモ","累計(円)"
+    "サイト名", "最低換金ポイント", "換金額(円)", "1pt(円)",
+    "pt1", "pt1→円", "pt2", "pt2→円", "メモ", "累計(円)"
   ];
   const lines = [head.join(",")];
 
@@ -207,31 +207,31 @@ function importCSV(file) {
 
     // ターゲット列の別名（どれかにマッチしたら採用）
     const alias = {
-      site:  ["サイト名","site","サイト","なまえ","名称"].map(_norm),
-      minpt: ["最低換金pt","最低換金ポイント","最低換金","minpt"].map(_norm),
-      yen:   ["換金額円","換金額","yen","金額"].map(_norm),
-      p1:    ["1pt円","pt1円","pt1","pt①円","pt①"].map(_norm),
-      p2:    ["pt2円","pt2","pt②円","pt②"].map(_norm),
-      memo:  ["メモ","memo","備考","コメント"].map(_norm),
+      site: ["サイト名", "site", "サイト", "なまえ", "名称"].map(_norm),
+      minpt: ["最低換金pt", "最低換金ポイント", "最低換金", "minpt"].map(_norm),
+      yen: ["換金額円", "換金額", "yen", "金額"].map(_norm),
+      p1: ["1pt円", "pt1円", "pt1", "pt①円", "pt①"].map(_norm),
+      p2: ["pt2円", "pt2", "pt②円", "pt②"].map(_norm),
+      memo: ["メモ", "memo", "備考", "コメント"].map(_norm),
     };
 
     // 先頭行がヘッダーかどうか判定（「サイト名」などが含まれていればヘッダー）
     const looksHeader = h0.some(h => alias.site.includes(h) || alias.minpt.includes(h) || alias.yen.includes(h));
 
     // 列インデックス決定
-    let idx = { site:0, minpt:1, yen:2, p1:3, p2:4, memo:5 };
+    let idx = { site: 0, minpt: 1, yen: 2, p1: 3, p2: 4, memo: 5 };
     if (looksHeader) {
       const findIdx = (names) => {
         for (let i = 0; i < h0.length; i++) if (names.includes(h0[i])) return i;
         return -1;
       };
       idx = {
-        site:  findIdx(alias.site),
+        site: findIdx(alias.site),
         minpt: findIdx(alias.minpt),
-        yen:   findIdx(alias.yen),
-        p1:    findIdx(alias.p1),
-        p2:    findIdx(alias.p2),
-        memo:  findIdx(alias.memo),
+        yen: findIdx(alias.yen),
+        p1: findIdx(alias.p1),
+        p2: findIdx(alias.p2),
+        memo: findIdx(alias.memo),
       };
     }
 
@@ -244,12 +244,12 @@ function importCSV(file) {
 
       const pick = (j) => (j >= 0 && j < cols.length) ? cols[j] : "";
 
-      const site  = pick(idx.site).trim();
+      const site = pick(idx.site).trim();
       const minpt = _num(pick(idx.minpt));
-      const yen   = _num(pick(idx.yen));
-      const p1    = _num(pick(idx.p1));
-      const p2    = _num(pick(idx.p2));
-      const memo  = pick(idx.memo); // メモは文字列のまま
+      const yen = _num(pick(idx.yen));
+      const p1 = _num(pick(idx.p1));
+      const p2 = _num(pick(idx.p2));
+      const memo = pick(idx.memo); // メモは文字列のまま
 
       // サイト名が空ならスキップ（お好みで）
       if (!site) continue;
@@ -368,7 +368,7 @@ function render(opts = {}) {
   const computed = arr.map((r, idx) => {
     const u = unit(r);
     const totalYen = getRecordTotal(r.site);
-    return { ...r, _i: idx, unit: u, yen1: yenOf(r, r.p1), yen2: yenOf(r, r.p2) , totalYen};
+    return { ...r, _i: idx, unit: u, yen1: yenOf(r, r.p1), yen2: yenOf(r, r.p2), totalYen };
   });
   // sort
   const k = sortState.key, dir = sortState.dir;
@@ -390,23 +390,24 @@ function render(opts = {}) {
        ${escapeHTML(r.site)}
     </a>
   </td>
-  <td class="right mono">${r.minpt}<span class="unit">pt</span></td>
-  <td class="right mono">${r.yen}<span class="unit">円</span></td>
+  <td class="right mono">${fmtInt(r.minpt)}<span class="unit">pt</span></td>
+  <td class="right mono">${fmtInt(r.yen)}<span class="unit">円</span></td>
   <td class="right mono">${r.unit.toFixed(4)}<span class="unit">円</span></td>
-  <td class="right mono">${r.p1 || 0}<span class="unit">pt</span></td>
+  <td class="right mono">${fmtInt(r.p1 || 0)}<span class="unit">pt</span></td>
   <td class="right mono">${fmtMoney(r.yen1)}<span class="unit">円</span></td>
-  <td class="right mono">${r.p2 || 0}<span class="unit">pt</span></td>
+  <td class="right mono">${fmtInt(r.p2 || 0)}<span class="unit">pt</span></td>
   <td class="right mono">${fmtMoney(r.yen2)}<span class="unit">円</span></td>
   <td>${escapeHTML(r.memo || "")}</td>
-   <td class="right mono">${fmtMoney(r.totalYen)}<span class="unit">円</span></td>
+  <td class="right mono">${fmtMoney(r.totalYen)}<span class="unit">円</span></td>
   <td class="action-col">
     <button type="button" class="btn ghost small" onclick="edit(${r._i})">編集</button>
     <button type="button" class="btn warn small"  onclick="delRow(${r._i})">削除</button>
   </td>
 `;
-    tb.appendChild(tr);
+    tb.appendChild(tr); // ←←←★ここ！絶対必要！
   });
 
+  
   // ---- ここから追加：Enterキーで次のinputに移動（textarea対応）----
   const inputs = document.querySelectorAll('.form-grid input, .form-grid textarea');
   inputs.forEach((el, i) => {
@@ -488,12 +489,28 @@ function resetAll() {
   flash("データを削除しました");
 }
 
-// 金額の見た目だけを整える
+// 金額の見た目（カンマ付＆桁数ルール）
 function fmtMoney(x) {
   const v = Number(x) || 0;
   if (v === 0) return "0";
-  if (v < 1) return v.toFixed(2);          // 1円未満は0.01円単位
-  return (Math.round(v * 10) / 10).toFixed(1); // 1円以上は0.1円単位
+  if (v < 1) {
+    // 1円未満は0.01円刻み（カンマ付）
+    return Number(v.toFixed(2)).toLocaleString('ja-JP', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+  // 1円以上は0.1円刻み（カンマ付）
+  const r = Math.round(v * 10) / 10;
+  return r.toLocaleString('ja-JP', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1
+  });
+}
+
+// ←★この下に追加！
+function fmtInt(n) {
+  return Number(n || 0).toLocaleString('ja-JP');
 }
 function setupCSVImport() {
   const btn = document.getElementById('csvBtn');
