@@ -747,3 +747,27 @@ html::after {
     font-size: 14px;
   }
 }
+
+/* ── スマホだけ：サイト名（1列目）を小さめ＋折り返し可に ── */
+@media (max-width: 600px){
+  #tbl th:first-child,
+  #tbl td:first-child{
+    font-size: 15px;           /* ←今より一段小さく（必要なら14px） */
+    line-height: 1.25;
+    white-space: normal;       /* 折り返し許可 */
+    word-break: break-word;    /* 英数/長語も割る */
+  }
+  /* ついでに全セルの左右パディングを少し詰めると被りにくい */
+  #tbl th, #tbl td { padding: 10px 8px; }
+  /* 単位はさらに小さめにして圧縮 */
+  #tbl .unit { font-size: 11px; }
+}
+
+<!-- colgroup の1列目だけ幅を少し増やす（例：13.5% → 16%） -->
+<colgroup>
+  <col style="width:16%">   <!-- サイト名 -->
+  <col style="width:11.5%">
+  <col style="width:11.5%">
+  <col style="width:10.5%">
+  <!-- …以下同じ … -->
+</colgroup>
