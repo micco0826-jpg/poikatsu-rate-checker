@@ -13,44 +13,51 @@
     <div class="hero">
       <div>
         <h1>ポイ活 単価換算ツール</h1>
-        <div class="lead">サイトごとの最低換金ptと金額から1pt単価を算出。 1回あたりの“よく貰えるpt（2つ）”も円で一目でわかる。</div>
+        <div class="lead">サイトごとの最低換金ptと金額から1pt単価を算出。 1回あたりの“よく貰えるpt”も円で一目でわかる。</div>
       </div>
     </div>
 
     <div class="card" style="margin-bottom:12px">
       <span class="pill">新規追加</span>
       <div style="height:8px"></div>
+
       <div class="form-grid">
         <div>
           <label>サイト名</label>
           <input id="site" type="text" placeholder="例: ハピタス">
         </div>
+
         <div>
           <label>最低換金ポイント</label>
           <input id="minpt" type="number" min="0" step="1" placeholder="例: 300">
         </div>
+
         <div>
           <label>換金額(円)</label>
           <input id="yen" type="number" min="0" step="1" placeholder="例: 300">
         </div>
+
+        <!-- ★ ここを1つだけに変更 -->
         <div>
-          <label>よく使うpt①</label>
+          <label>よく使うpt</label>
           <input id="p1" type="number" min="1" step="1" placeholder="例: 60">
         </div>
-        <div>
-          <label>よく使うpt②</label>
-          <input id="p2" type="number" min="1" step="1" placeholder="例: 120">
-        </div>
+        <!-- ★ ここにあった「よく使うpt②」の <div> は削除 -->
+
         <div class="full">
           <label>メモ</label>
           <textarea id="memo" rows="2" placeholder="例: 歩数アプリ、等価交換など"></textarea>
         </div>
+
         <div>
           <label>&nbsp;</label>
           <button id="addBtn" class="btn" onclick="add()">追加</button>
         </div>
+
         <div class="full">
-          <div class="hint">例：最低300pt→300円なら 1pt=1.0円。広告1回で60ptなら 60円。</div>
+          <div class="hint">
+            例：最低300pt→300円なら 1pt=1.0円。広告1回で60ptなら 60円。
+          </div>
         </div>
       </div>
     </div>
@@ -63,31 +70,26 @@
             <th class="right sortable" data-k="minpt">最低換金pt<span class="sort-ind"></span></th>
             <th class="right sortable" data-k="yen">換金額(円)<span class="sort-ind"></span></th>
             <th class="right sortable" data-k="unit">1pt(円)<span class="sort-ind"></span></th>
-            <th class="right sortable" data-k="p1">pt①<span class="sort-ind"></span></th>
-            <th class="right sortable" data-k="yen1">pt①→円<span class="sort-ind"></span></th>
-            <th class="right sortable" data-k="p2">pt②<span class="sort-ind"></span></th>
-            <th class="right sortable" data-k="yen2">pt②→円<span class="sort-ind"></span></th>
-            <th>メモ</th>
+            <th class="right sortable" data-k="p1">よく使うpt<span class="sort-ind"></span></th>
+            <th class="right sortable" data-k="yen1">よく使うpt→円<span class="sort-ind"></span></th>
+            <th class="sortable" data-k="memo">メモ<span class="sort-ind"></span></th>
             <th class="right sortable" data-k="totalYen">累計(円)<span class="sort-ind"></span></th>
             <th class="action-col"></th>
-            <th></th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </div>
     <colgroup>
-      <col style="width:11%"> <!-- サイト名 -->
-      <col style="width:11.5%"> <!-- 最低換金pt -->
-      <col style="width:11.5%"> <!-- 換金額 -->
-      <col style="width:10.5%"> <!-- 1pt(円) -->
-      <col style="width:9.5%"> <!-- pt① -->
-      <col style="width:9.5%"> <!-- pt①→円 -->
-      <col style="width:9.5%"> <!-- pt② -->
-      <col style="width:9.5%"> <!-- pt②→円 -->
-      <col style="width:12%"> <!-- メモ 少し縮める -->
-      <col style="width:10%"> <!-- ★ 累計(円) 追加 -->
-      <col style="width:5%"> <!-- 操作列 少し詰める -->
+      <col style="width:12%"> <!-- サイト名 -->
+      <col style="width:11%"> <!-- 最低換金pt -->
+      <col style="width:11%"> <!-- 換金額 -->
+      <col style="width:10%"> <!-- 1pt(円) -->
+      <col style="width:9%"> <!-- よく使うpt -->
+      <col style="width:9%"> <!-- よく使うpt→円 -->
+      <col style="width:15%"> <!-- メモ -->
+      <col style="width:10%"> <!-- 累計(円) -->
+      <col style="width:7%"> <!-- 操作 -->
     </colgroup>
     <div class="card" style="margin:12px 0 0">
       <span class="pill">データ操作</span>
@@ -107,7 +109,7 @@
         </div>
         <button class="btn warn" onclick="resetAll()">全削除</button>
       </div>
-      <div class="hint">CSVは <code>サイト名,最低換金ポイント,換金額,pt1,pt2,メモ</code> の順で入出力します。JSONはレートと換金記録をまとめて保存・復元します。</div>
+      <div class="hint">CSVは <code>サイト名,最低換金ポイント,換金額,よく使うpt,メモ</code> の順で入出力します。JSONはレートと換金記録をまとめて保存・復元します。</div>
     </div>
 
     <div class="footer">©みこ</div>

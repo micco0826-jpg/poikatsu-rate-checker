@@ -1,22 +1,16 @@
 :root {
   --bg: #fbf9f7;
-  /* 背景（全体） */
+  --page-bg: #ffeaf0;        /* 全体のピンク */
   --card: #ffffff;
-  /* カード背景 */
   --ink: #222;
-  /* 本文テキスト色 */
   --muted: #6b6b6b;
-  /* 補助テキスト色 */
   --line: #eee;
-  /* 枠線・罫線 */
   --accent: #f7b267;
-  /* アクセントカラー（メイン） */
   --accent-2: #ffd7a8;
-  /* アクセント補色（グラデ用） */
   --pill: #ff9fb7;
-  /* ピルバッジ背景 */
 }
 
+/* ----------------- base ----------------- */
 *,
 *::before,
 *::after {
@@ -27,51 +21,55 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
+  min-height: 100%;
+  background: var(--page-bg);
   color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+body {
+  min-height: 100vh;
 }
 
 .wrap {
   max-width: 1080px;
   margin: 28px auto;
-  padding: 0 16px
+  padding: 0 16px;
 }
 
-/*　タイトル周りの見た目*/
+/* ----------------- header / hero ----------------- */
 .hero {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
-  margin: 0 0 12px
+  margin: 0 0 12px;
 }
 
-/* hero左横のロゴ風マーク（未使用中） */
 .hero .mark {
   width: 38px;
   height: 38px;
   border-radius: 10px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  box-shadow: 0 6px 14px rgba(0, 0, 0, .08);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  color: #222
+  color: #222;
 }
 
-/* タイトル*/
 h1 {
   font-size: 22px;
   margin: 0;
   font-weight: 800;
-  letter-spacing: .02em
+  letter-spacing: 0.02em;
 }
 
 .lead {
   color: var(--muted);
   font-size: 13px;
-  margin: 2px 0 14px
+  margin: 2px 0 14px;
 }
 
 .chip {
@@ -81,14 +79,15 @@ h1 {
   background: var(--accent-2);
   font-weight: 700;
   font-size: 12px;
-  color: #222
+  color: #222;
 }
 
+/* ----------------- card & pill ----------------- */
 .card {
   background: var(--card);
   border-radius: 18px;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, .07);
-  padding: 16px
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 16px;
 }
 
 .pill {
@@ -98,30 +97,66 @@ h1 {
   padding: 6px 12px;
   font-weight: 700;
   font-size: 12px;
-  display: inline-block
+  display: inline-block;
 }
 
+/* ----------------- form ----------------- */
 label {
   font-size: 12px;
   color: var(--muted);
   display: block;
-  margin-bottom: 6px
+  margin-bottom: 6px;
 }
 
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  font-size: 15px;
-  background: #fff;
-  appearance: none;
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: end;
+}
+
+.form-grid > div {
+  min-width: 0;
+}
+
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
+/* ★ ここで input / textarea を完全統一：角丸も高さも全部ここ */
+.form-grid input,
+.form-grid textarea {
   -webkit-appearance: none;
-  line-height: 1.2;
+  appearance: none;
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px 12px;
+  font-size: 16px;
+  line-height: 1.6;
   height: 42px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
 }
 
+.form-grid textarea#memo {
+  min-height: 56px;
+  resize: vertical;
+}
+
+.form-grid input:focus,
+.form-grid textarea:focus {
+  outline: none;
+  border-color: #d8d8d8;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+.form-grid input::placeholder,
+.form-grid textarea::placeholder {
+  color: #9aa0a6;
+}
+
+/* ----------------- buttons ----------------- */
 .btn {
   padding: 12px 14px;
   border: 0;
@@ -131,158 +166,72 @@ input[type="number"] {
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
-  height: 42px
+  height: 42px;
 }
 
 .btn.ghost {
   background: #ececec;
-  color: #222
+  color: #222;
 }
 
 .btn.warn {
-  background: #e45757
+  background: #e45757;
 }
 
 .btn.small {
-  height: 34px;
-  padding: 8px 10px;
+  height: 32px;
+  padding: 6px 10px;
   border-radius: 10px;
-  font-size: 12px
+  font-size: 13px;
 }
 
+/* ----------------- misc ui ----------------- */
 .hint {
   font-size: 12px;
   color: #8a8a8a;
-  margin-top: 6px
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  align-items: end
-}
-
-.form-grid>div {
-  min-width: 0
-}
-
-.form-grid .full {
-  grid-column: 1 / -1
-}
-
-/* グリッドの両列をまたぐ */
-.form-grid .full {
-  grid-column: 1 / -1;
-}
-
-/* テキストエリアの使い勝手を少しUP */
-.form-grid textarea#memo {
-  width: 100%;
-  min-height: 44px;
-  resize: vertical;
-  /* 好きに縦方向に伸縮OK */
-  line-height: 1.6;
-}
-
-.table-wrap {
-  margin-top: 16px;
-
-  overflow: auto;
-  position: relative;
-  will-change: transform
-}
-
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: #fff;
-  border-radius: 14px;
-}
-
-th,
-td {
-  padding: 14px;
-  border-bottom: 1px solid var(--line);
-  font-size: 15px;
-  vertical-align: middle
-}
-
-thead th {
-  position: sticky;
-  top: 0;
-  background: #f6f5f2;
-  z-index: 50;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.04)
-}
-
-thead th.sortable {
-  cursor: pointer;
-  user-select: none
-}
-
-thead th.sortable:hover {
-  background: #efece6
-}
-
-th .sort-ind {
-  font-size: 11px;
-  color: var(--muted);
-  margin-left: 6px
-}
-
-td .mono {
-  font-variant-numeric: tabular-nums
-}
-
-.right {
-  text-align: right
-}
-
-.nowrap {
-  white-space: nowrap
+  margin-top: 6px;
 }
 
 .file-input {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px
+  gap: 8px;
 }
 
 .file-input input[type="file"] {
   position: absolute;
   inset: 0;
   opacity: 0;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .file-input .btn {
   position: relative;
-  z-index: 1
+  z-index: 1;
 }
 
 .footer {
   color: #888;
   font-size: 12px;
   margin: 22px 0;
-  text-align: center
+  text-align: center;
 }
 
+/* toast */
 .toast {
   position: fixed;
   left: 50%;
   bottom: 18px;
   transform: translateX(-50%);
-  background: rgba(34, 34, 34, .9);
+  background: rgba(34, 34, 34, 0.9);
   color: #fff;
   padding: 10px 14px;
   border-radius: 12px;
   font-size: 13px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .25s, transform .25s;
+  transition: opacity 0.25s, transform 0.25s;
   z-index: 9999;
 }
 
@@ -291,174 +240,114 @@ td .mono {
   transform: translateX(-50%) translateY(-4px);
 }
 
+/* ----------------- table ----------------- */
+.table-wrap {
+  margin-top: 16px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+#tbl {
+  width: 100%;
+  min-width: 900px;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 14px;
+}
+
+#tbl th,
+#tbl td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#tbl thead th {
+  position: sticky;
+  top: 0;
+  background: #f6f5f2;
+  z-index: 50;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.04);
+}
+
+thead th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+thead th.sortable:hover {
+  background: #efece6;
+}
+
+th .sort-ind {
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
+.right {
+  text-align: right;
+}
+
+.mono {
+  font-variant-numeric: tabular-nums;
+}
+
 /* 単位の見た目 */
 .unit {
   color: #999;
   font-size: 0.85em;
   margin-left: 3px;
   vertical-align: middle;
-  /* ←数字と高さを合わせる */
 }
 
-/* クリックを透過させる（入力欄の操作をブロックしない） */
-.toast {
-  pointer-events: none;
-}
-
-/* 入力欄の共通スタイル（input/textareaを同一に） */
-.form-grid input,
-.form-grid textarea {
-  width: 100%;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  background: #fff;
-  padding: 14px 16px;
-  font-size: 16px;
-  line-height: 1.6;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
-}
-
-/* フォーカス時の枠・影も統一 */
-.form-grid input:focus,
-.form-grid textarea:focus {
-  outline: none;
-  border-color: #d8d8d8;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
-}
-
-/* メモ用テキストエリアの調整（高さ・リサイズ） */
-.form-grid textarea#memo {
-  min-height: 56px;
-  /* inputと近い高さからスタート */
-  resize: vertical;
-  /* 必要なら縦に伸ばせる */
-}
-
-/* メモをフォーム2列ぶち抜きで */
-.form-grid .full {
-  /* 既にあればそのままでOK */
-  grid-column: 1 / -1;
-}
-
-/* プレースホルダ色を薄めに（任意） */
-.form-grid input::placeholder,
-.form-grid textarea::placeholder {
-  color: #9aa0a6;
-}
-
-/* テーブル内ボタンの位置揃え */
-#tbl td {
-  vertical-align: middle;
-  /* 行の中央にボタンを揃える */
-}
-
-/* 編集・削除ボタンの余白を統一 */
-#tbl .btn.small {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 32px;
-  padding: 0 12px;
-  font-size: 14px;
-  line-height: 1;
+/* サイト名列 */
+#tbl th:first-child,
+#tbl td:first-child {
+  width: 140px;
+  min-width: 140px;
   white-space: nowrap;
-  margin: 2px 4px;
-  /* 並んでもギュッとしないように */
 }
 
-th.action-col {
-  width: 80px;
+/* メモ列は折り返し可（7列目） */
+#tbl td:nth-child(7) {
+  white-space: normal !important;
+  word-break: break-all;
 }
 
-/* 操作列の幅を小さめに */
-td.actions {
+/* 累計(円) 列は右寄せ（8列目想定） */
+#tbl th[data-k="totalYen"],
+#tbl td:nth-child(8) {
   text-align: right;
-  white-space: nowrap;
 }
 
-/* 入力フォーム全体の見た目を調整 */
-.form-grid input[type="date"],
-.form-grid input[type="number"] {
-  width: 100%;
-  height: 40px;
-  padding: 6px 10px;
-  font-size: 16px;
-  font-family: inherit;
-  /* 全体と同じフォントに */
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-sizing: border-box;
-}
-
-/* テキストエリアも高さ・フォントを揃える */
-.form-grid textarea {
-  width: 100%;
-  font-size: 16px;
-  font-family: inherit;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px 10px;
-  box-sizing: border-box;
-}
-
-/* ラベルとボタンも少し整える */
-.form-grid label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 4px;
-  color: #333;
-}
-
-.form-grid .btn {
-  height: 40px;
-  width: 100%;
-  font-size: 16px;
-  border-radius: 6px;
-}
-
-/* タイトルと説明文を下端でそろえる */
-.hero {
-  display: flex;
-  align-items: flex-end;
-  /* 下端揃え */
-  gap: 12px;
-}
-
-.hero h1 {
-  margin: 0;
-  line-height: 1.1;
-}
-
-.hero .note {
-  margin: 0 0 2px 0;
-  /* 少しだけ下げて視覚合わせ */
-  color: #666;
-  font-size: 14px;
-}
-
-.table-wrap td:nth-child(3),
-.table-wrap th:nth-child(3) {
-  word-break: break-word;
-  /* 長いメモも折り返し */
+.table-wrap th:last-child,
+.table-wrap td:last-child {
+  text-align: right;      /* ★ 右寄せに統一 */
+  white-space: nowrap;    /* 折り返さない */
+  padding-right: 12px;    /* 右にちょっと余白 */
 }
 
 .action-col {
   text-align: right;
 }
 
-/* 換金記録のデータ操作カードだけ余白を微調整 */
-.ops-card .pill {
-  display: inline-block;
-  margin-bottom: 8px;
-  /* ← 12px → 8px にして自然に */
+#tbl .btn.small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
+  margin: 2px 4px;
 }
 
-.ops-card .file-input,
-.ops-card .btn.ghost {
-  margin-top: 4px;
-  /* ← 6px → 4px にして全体を少し詰める */
-}
-
+/* ----------------- link ----------------- */
 a.link {
   color: #333;
   text-decoration: none;
@@ -477,206 +366,7 @@ a.link[target="_blank"]::after {
   opacity: 0.5;
 }
 
-@media (max-width: 600px) {
-  .card .btn {
-    flex: 1 1 45%;
-    /* 幅を均等にして2列配置 */
-    font-size: 14px;
-  }
-
-  .card div[style*="display:flex"] {
-    justify-content: center;
-    /* ボタンを中央寄せ */
-  }
-}
-
-/* ---------- スマホ時はテーブルを横スクロールにする ---------- */
-@media (max-width: 768px) {
-
-  /* テーブルを包んでるカードに横スクロールを許可 */
-  .table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    /* iOSでぬるっと */
-  }
-
-  /* 小さな単位（円 / pt）を控えめに */
-  .unit {
-    font-size: 12px;
-    margin-left: 2px;
-  }
-
-  /* 操作用ボタンの列は幅を固定して崩れないように */
-  #tbl td .btn.small,
-  #tbl th.action-col {
-    width: 90px;
-    /* ボタン1個分の幅を確保 */
-    text-align: right;
-  }
-}
-
-/* ▼スマホで編集・削除ボタンが見えない対策 */
-@media (max-width: 600px) {
-  .table-wrap td.actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    flex-wrap: wrap;
-    /* 折り返しOK */
-    white-space: normal;
-    /* テキスト折り返し許可 */
-  }
-}
-
-@media (max-width: 600px) {
-  body {
-    background: pink !important;
-  }
-}
-
-body {
-  background: #ffeef2;
-  /* 優しいくすみピンク */
-}
-
-.card {
-  background: #fff;
-  /* 中は白で清潔感 */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-/* ボタン間の余白（お好みで） */
-.table-wrap td.action-col .btn+.btn {
-  margin-left: 8px;
-}
-
-/* ボタン同士の間隔は少しだけ */
-.table-wrap td.action-col .btn {
-  margin-left: 6px;
-  /* 4～8pxで調整可 */
-}
-
-/* 念のため表のセル余白をゼロ（環境で広がるのを防ぐ） */
-.table-wrap table {
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-/* メモをちょい広め（見やすさ重視） */
-.table-wrap th:nth-child(9),
-.table-wrap td:nth-child(9) {
-  width: 16%;
-  white-space: nowrap;
-}
-
-/* ボタン間隔を調整 */
-.table-wrap td:last-child .btn {
-  margin-left: 4px;
-}
-
-.table-wrap th,
-.table-wrap td {
-  padding: 8px 10px;
-  vertical-align: middle;
-  text-align: left;
-}
-
-/* 1) html と body を同じ色にして統一 */
-:root {
-  --page-bg: #ffeaf0;
-}
-
-/* ←好きなピンクに */
-html,
-body {
-  background: var(--page-bg) !important;
-}
-
-/* 2) ページ全体を確実に塗りつぶす（念のため） */
-html,
-body {
-  min-height: 100%;
-}
-
-body {
-  min-height: 100vh;
-}
-
-/* 3) もし昔の装飾で body::before / html の背景画像やグラデが残っていたら無効化 */
-body::before,
-body::after,
-html::before,
-html::after {
-  background: none !important;
-  content: none !important;
-}
-
-/* ====== SP：操作列(編集/削除)が重ならないように調整 ====== */
-@media (max-width: 600px) {
-
-  /* 操作列は折り返しOK & フレックス配置 */
-  #tbl td.action-col,
-  #tbl td:last-child {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    flex-wrap: wrap;
-    /* ← これで重ならず折り返せる */
-    white-space: normal;
-    /* ← ノーラップを打ち消す */
-    width: 140px;
-    /* 120〜160pxお好みで */
-    padding-right: 8px;
-  }
-
-  /* メモ列は折り返し可にして幅を稼ぐ（9列目がメモ） */
-  #tbl td:nth-child(9),
-  #tbl th:nth-child(9) {
-    white-space: normal;
-  }
-
-  /* モバイル時のセルの余白を少しだけ詰める */
-  #tbl th,
-  #tbl td {
-    padding: 10px 8px;
-  }
-
-  /* ボタンを少し小さめに */
-  #tbl .btn.small {
-    height: 30px;
-    padding: 6px 10px;
-    font-size: 13px;
-  }
-}
-
-/* 編集・削除ボタン列（右寄せ＋コンパクト） */
-.table-wrap th:last-child,
-.table-wrap td:last-child {
-  white-space: nowrap;
-  /* ←折り返さない */
-  padding-right: 12px;
-  /* ←右にちょっと余白 */
-}
-
-/* メモ列のテキストを折り返す */
-#tbl td:nth-child(9) {
-  white-space: normal !important;
-  word-break: break-all;
-}
-
-/* 表のカードの下に余白（重なり防止） */
-.table-wrap {
-  margin-bottom: 12px;
-  border-radius: 14px;
-  /* 既存値に合わせる */
-}
-
-/* データ操作カードの上に余白（保険） */
-.ops-card {
-  margin-top: 12px;
-  /* 8〜16pxで好みに調整 */
-}
-
+/* ----------------- total card / ops card ----------------- */
 .total-card {
   display: flex;
   justify-content: space-between;
@@ -696,95 +386,35 @@ html::after {
   font-size: 13px;
 }
 
-/* 累計(円) 列は右寄せ（保険） */
-#tbl th[data-k="totalYen"],
-#tbl td:nth-child(10) {
-  /* colgroupに合わせて番号がズレたら要調整 */
-  text-align: right;
+.ops-card .pill {
+  display: inline-block;
+  margin-bottom: 8px;
 }
 
-/* スマホ時、表の最小幅を少し広げて窮屈さ回避（任意） */
+/* ----------------- responsive ----------------- */
 @media (max-width: 768px) {
+  /* テーブルを横スクロール前提に */
   #tbl {
     min-width: 980px;
   }
 
-  /* 900→980 など好みで */
-}
-
-/* ▼表レイアウトはこれ1つでOK：重複は削除 */
-#tbl {
-  width: 100%;
-  min-width: 900px;
-  /* スマホで横スクロールしたいときは残す */
-  table-layout: fixed;
-  /* colgroupの幅を効かせたいのでfixed */
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-/* もし sticky ヘッダを使っているなら th/td の共通余白だけ定義 */
-#tbl th,
-#tbl td {
-  padding: 8px 10px;
-  /* お好みで */
-  vertical-align: middle;
-  text-align: left;
-}
-
-/* サイト名の列だけ幅を指定（強制） */
-#tbl th:first-child,
-#tbl td:first-child {
-  width: 140px !important;
-  /* ←pxで書いた方が効く！ */
-  min-width: 140px;
-  white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-
-  /* サイト名の文字を少し小さくする */
+  /* サイト名文字ちょっと小さく */
   #tbl td:first-child {
     font-size: 14px;
   }
 }
 
-/* ── スマホだけ：サイト名（1列目）を小さめ＋折り返し可に ── */
 @media (max-width: 600px) {
-
-  #tbl th:first-child,
-  #tbl td:first-child {
-    font-size: 15px;
-    /* ←今より一段小さく（必要なら14px） */
-    line-height: 1.25;
-    white-space: normal;
-    /* 折り返し許可 */
-    word-break: break-word;
-    /* 英数/長語も割る */
+  /* フォームの2列グリッドを1列に */
+  .form-grid {
+    grid-template-columns: 1fr;
   }
-
-  /* ついでに全セルの左右パディングを少し詰めると被りにくい */
-  #tbl th,
-  #tbl td {
-    padding: 10px 8px;
-  }
-
-  /* 単位はさらに小さめにして圧縮 */
-  #tbl .unit {
-    font-size: 11px;
-  }
-}
-
-/* ── スマホ版（幅600px以下）のテーブル調整 ── */
-@media (max-width: 600px) {
 
   /* サイト名列をコンパクトに */
   #tbl col:first-child {
     width: 100px !important;
-    /* ←見て調整。90〜110pxが目安 */
   }
 
-  /* サイト名の文字を小さめ＋折り返しOK */
   #tbl th:first-child,
   #tbl td:first-child {
     font-size: 14px;
@@ -793,43 +423,29 @@ html::after {
     word-break: break-word;
   }
 
-  /* 単位や数値の詰まり対策 */
-  #tbl .unit {
-    font-size: 11px;
-  }
-
-  /* 全体的に余白を少し詰めてコンパクトに */
   #tbl th,
   #tbl td {
     padding: 8px 6px;
   }
-}
 
-
-/* ── スマホ版（幅600px以下）のテーブル調整 ── */
-@media (max-width: 600px) {
-  /* サイト名列をコンパクトに */
-  #tbl col:first-child {
-    width: 100px !important; /* ←見て調整。90〜110pxが目安 */
+  #tbl .unit {
+    font-size: 11px;
   }
 
-  /* サイト名の文字を小さめ＋折り返しOK */
-  #tbl th:first-child,
-  #tbl td:first-child {
-    font-size: 14px;
-    line-height: 1.2;
+  /* 操作列を折り返しOKにして詰まり防止 */
+  #tbl td.action-col,
+  #tbl td:last-child {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: wrap;
     white-space: normal;
-    word-break: break-word;
+    width: 140px;
+    padding-right: 8px;
   }
 
-  /* 単位や数値の詰まり対策 */
-  #tbl .unit {
-    font-size: 11px;
-  }
-
-  /* 全体的に余白を少し詰めてコンパクトに */
-  #tbl th,
-  #tbl td {
-    padding: 8px 6px;
+  .card .btn {
+    flex: 1 1 45%;
+    font-size: 14px;
   }
 }

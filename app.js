@@ -28,14 +28,13 @@ function add() {
   const site = $("#site").value.trim();
   const minpt = Number($("#minpt").value || 0);
   const yen = Number($("#yen").value || 0);
-  const p1 = Number($("#p1").value || 0);
-  const p2 = Number($("#p2").value || 0);
+  const p1 = Number(document.getElementById("p1").value);
   const memo = $("#memo").value.trim();
 
   if (!site) { alert("サイト名を入れてね"); return; }            // ←文言も自然に
   if (!minpt || !yen) { alert("最低換金pt と 換金額 を入れてね"); return; }
 
-  const rec = { site, minpt, yen, p1: p1 || 0, p2: p2 || 0, memo };
+  const rec = { site, minpt, yen, p1: p1 || 0, memo };
   const arr = getData();
 
   if (editingIndex !== null) {
@@ -59,7 +58,7 @@ function add() {
 
 // ← このすぐ下に入れる！
 function resetForm() {
-  ["#site", "#minpt", "#yen", "#p1", "#p2", "#memo"].forEach(id => $(id).value = "");
+  ["#site", "#minpt", "#yen", "#p1", "#memo"].forEach(id => $(id).value = "");
   const btn = document.getElementById("addBtn");
   btn.textContent = "追加";
   btn.classList.remove("primary");
@@ -85,7 +84,6 @@ function edit(i) {
   $("#minpt").value = r.minpt || "";
   $("#yen").value = r.yen || "";
   $("#p1").value = r.p1 || "";
-  $("#p2").value = r.p2 || "";
   $("#memo").value = r.memo || "";
 
   editingIndex = i;  // ← ここで「編集モード」に入る
@@ -117,7 +115,6 @@ function exportCSV() {
       ...r,
       unit: u,
       yen1: yenOf(r, r.p1),
-      yen2: yenOf(r, r.p2),
       totalYen: getRecordTotal(r.site),
     };
   });
@@ -135,8 +132,14 @@ function exportCSV() {
 
   // 3) ヘッダー（表と同じ＋累計(円)）
   const head = [
-    "サイト名", "最低換金ポイント", "換金額(円)", "1pt(円)",
-    "pt1", "pt1→円", "pt2", "pt2→円", "メモ", "累計(円)"
+    "サイト名",
+    "最低換金ポイント",
+    "換金額(円)",
+    "1pt(円)",
+    "よく使うpt",
+    "pt→円",
+    "メモ",
+    "累計(円)"
   ];
   const lines = [head.join(",")];
 
@@ -155,9 +158,7 @@ function exportCSV() {
       r.yen,
       r.unit.toFixed(4),         // 1pt(円)
       r.p1 || "",
-      moneyCSV(r.yen1),          // pt1→円
-      r.p2 || "",
-      moneyCSV(r.yen2),          // pt2→円
+      moneyCSV(r.yen1),          // pt→円
       r.memo || "",
       moneyCSV(r.totalYen),      // ★ 累計(円)
     ];
@@ -210,8 +211,7 @@ function importCSV(file) {
       site: ["サイト名", "site", "サイト", "なまえ", "名称"].map(_norm),
       minpt: ["最低換金pt", "最低換金ポイント", "最低換金", "minpt"].map(_norm),
       yen: ["換金額円", "換金額", "yen", "金額"].map(_norm),
-      p1: ["1pt円", "pt1円", "pt1", "pt①円", "pt①"].map(_norm),
-      p2: ["pt2円", "pt2", "pt②円", "pt②"].map(_norm),
+      p1: ["1pt円", "pt円", "pt", "pt①円", "pt①"].map(_norm),
       memo: ["メモ", "memo", "備考", "コメント"].map(_norm),
     };
 
@@ -219,7 +219,7 @@ function importCSV(file) {
     const looksHeader = h0.some(h => alias.site.includes(h) || alias.minpt.includes(h) || alias.yen.includes(h));
 
     // 列インデックス決定
-    let idx = { site: 0, minpt: 1, yen: 2, p1: 3, p2: 4, memo: 5 };
+    let idx = { site: 0, minpt: 1, yen: 2, p1: 3, memo: 4 };
     if (looksHeader) {
       const findIdx = (names) => {
         for (let i = 0; i < h0.length; i++) if (names.includes(h0[i])) return i;
@@ -230,7 +230,6 @@ function importCSV(file) {
         minpt: findIdx(alias.minpt),
         yen: findIdx(alias.yen),
         p1: findIdx(alias.p1),
-        p2: findIdx(alias.p2),
         memo: findIdx(alias.memo),
       };
     }
@@ -248,13 +247,12 @@ function importCSV(file) {
       const minpt = _num(pick(idx.minpt));
       const yen = _num(pick(idx.yen));
       const p1 = _num(pick(idx.p1));
-      const p2 = _num(pick(idx.p2));
       const memo = pick(idx.memo); // メモは文字列のまま
 
       // サイト名が空ならスキップ（お好みで）
       if (!site) continue;
 
-      out.push({ site, minpt, yen, p1, p2, memo });
+      out.push({ site, minpt, yen, p1, memo });
     }
 
     setData(out);
@@ -368,7 +366,7 @@ function render(opts = {}) {
   const computed = arr.map((r, idx) => {
     const u = unit(r);
     const totalYen = getRecordTotal(r.site);
-    return { ...r, _i: idx, unit: u, yen1: yenOf(r, r.p1), yen2: yenOf(r, r.p2), totalYen };
+    return { ...r, _i: idx, unit: u, yen1: yenOf(r, r.p1), totalYen };
   });
   // sort
   const k = sortState.key, dir = sortState.dir;
@@ -395,8 +393,6 @@ function render(opts = {}) {
   <td class="right mono">${r.unit.toFixed(4)}<span class="unit">円</span></td>
   <td class="right mono">${fmtInt(r.p1 || 0)}<span class="unit">pt</span></td>
   <td class="right mono">${fmtMoney(r.yen1)}<span class="unit">円</span></td>
-  <td class="right mono">${fmtInt(r.p2 || 0)}<span class="unit">pt</span></td>
-  <td class="right mono">${fmtMoney(r.yen2)}<span class="unit">円</span></td>
   <td>${escapeHTML(r.memo || "")}</td>
   <td class="right mono">${fmtMoney(r.totalYen)}<span class="unit">円</span></td>
   <td class="action-col">
@@ -407,7 +403,7 @@ function render(opts = {}) {
     tb.appendChild(tr); // ←←←★ここ！絶対必要！
   });
 
-  
+
   // ---- ここから追加：Enterキーで次のinputに移動（textarea対応）----
   const inputs = document.querySelectorAll('.form-grid input, .form-grid textarea');
   inputs.forEach((el, i) => {
@@ -470,9 +466,9 @@ function parseCSVLine(line) {
   const arr = getData();
   if (arr.length === 0) {
     setData([
-      { site: "あるくと", minpt: 100, yen: 100, p1: 5, p2: 20, memo: "歩数アプリ" },
-      { site: "ハピタス", minpt: 300, yen: 300, p1: 60, p2: 120, memo: "等価交換" },
-      { site: "ポイントインカム", minpt: 500, yen: 500, p1: 50, p2: 100, memo: "案件系" }
+      { site: "あるくと", minpt: 100, yen: 100, p1: 5, memo: "歩数アプリ" },
+      { site: "ハピタス", minpt: 300, yen: 300, p1: 60, memo: "等価交換" },
+      { site: "ポイントインカム", minpt: 500, yen: 500, p1: 50, memo: "案件系" }
     ]);
   }
   render();
